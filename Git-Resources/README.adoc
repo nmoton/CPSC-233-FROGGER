@@ -1,4 +1,4 @@
-= GitResources
+= Git-Resources
 
 For those interested in software development, you will eventually be introduced and required to use a form of
 version control. 
