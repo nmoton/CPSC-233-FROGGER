@@ -13,12 +13,15 @@ public class Frogger {
 				JFrame gameWindow = new JFrame("Frogger");
 				
 				gameWindow.getContentPane().setPreferredSize((new Dimension(640, 480))); //Sets content pane to 640x480.
-				gameWindow.pack(); //Forces content pane to 640x480.
-				gameWindow.setLocationRelativeTo(null); //Forces frame to appear in middle of user's screen.
 				gameWindow.setResizable(false); //Keeps window at same size.
 				gameWindow.setVisible(true); //Makes window visible.
+				gameWindow.pack(); //Forces content pane to 640x480.
+				gameWindow.setLocationRelativeTo(null); //Forces frame to appear in middle of user's screen.
 				gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Terminates entire program upon closing window.
-			
+
+				
+				Gameplay frogger = new Gameplay(gameWindow.getContentPane().getWidth(), gameWindow.getContentPane().getHeight());
+				gameWindow.add(frogger);
 			}
 		});
 	}
