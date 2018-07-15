@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.geom.Rectangle2D;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -20,6 +21,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	
 	//Frog for testing.
 	private Frog frog = new Frog();
+	
+	private Vehicle vehicle = new Vehicle(0.0, 256, 0.75);
 	
 	public Gameplay(int contentWidth, int contentHeight) {
 		addKeyListener(this);
@@ -36,24 +39,33 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	}
 	
 	public void paintComponent(Graphics g) {
+		//Required to implement rect that can use doubles.
+		Graphics2D g2 = (Graphics2D) g;
+		
 		//Code for development grid.
 		for (int x = 0; x < width; x += 32)
 		{
 			for (int y = 0; y < height; y+= 32)
 			{
-				g.drawRect(x, y, 32, 32);
+				g2.drawRect(x, y, 32, 32);
 			}
 		}
 		
 		//Frog for testing.
-		g.setColor(Color.green);
-		g.drawRect(frog.getPlayerPosX(), frog.getPlayerPosY(), 32, 32);
+		g2.setColor(Color.green);
+		g2.drawRect(frog.getPlayerPosX(), frog.getPlayerPosY(), 32, 32);
+		
+		//Vehicle for testing.
+		g2.setColor(Color.red);
+		vehicle.moveVehicleX();
+		Rectangle2D rect = new Rectangle2D.Double(vehicle.getVehiclePosX(), vehicle.getVehiclePosY(), 32, 32);
+		g2.fill(rect); 
+
 		
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		timer.start();
 		repaint();
 	}
 
