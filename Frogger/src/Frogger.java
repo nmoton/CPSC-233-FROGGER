@@ -18,7 +18,6 @@ public class Frogger {
 				gameWindow.pack(); //Forces content pane to 640x480.
 				gameWindow.setLocationRelativeTo(null); //Forces frame to appear in middle of user's screen.
 				gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Terminates entire program upon closing window.
-
 				
 				Gameplay frogger = new Gameplay(gameWindow.getContentPane().getWidth(), gameWindow.getContentPane().getHeight());
 				gameWindow.add(frogger);
