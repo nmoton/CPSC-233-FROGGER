@@ -101,7 +101,12 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 				System.exit(0); //Will close program on collision.
 			}
 		}
+	}
 	
+	public void vehicleCollisionLeftBound (Vehicle[] vehicleArray) {
+		for (int i = 0; i < vehicleArray.length; i++) {
+			if (vehicleArray[i].getVehiclePosX() - map.frog.getPlayerPosX() )
+		}
 	}
 
 	public void keyReleased(KeyEvent e) {
