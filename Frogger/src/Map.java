@@ -35,15 +35,18 @@ public class Map extends JPanel implements ActionListener{
 		Graphics2D g2 = (Graphics2D) g;
 	
 		//Code for development grid.
-		for (int x = 0; x < 640; x += 32)
-		{
-			for (int y = 0; y < 480; y+= 32)
-			{
-				g2.drawRect(x, y, 32, 32);
-			}
-		}
+		//for (int x = 0; x < 640; x += 32)
+		//{
+			//for (int y = 0; y < 480; y+= 32)
+			//{
+				//g2.drawRect(x, y, 32, 32);
+			//}
+		//}
 	
 		//Frog for testing.
+		g2.setColor(Color.black);
+		g2.fillRect(0, 0, 640, 480);
+		
 		g2.setColor(Color.green);
 		g2.drawRect(frog.getPlayerPosX(), frog.getPlayerPosY(), 32, 32);
 	

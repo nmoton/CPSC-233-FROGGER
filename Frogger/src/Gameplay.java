@@ -30,6 +30,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		vehicleBoundaryRightBound(map.vehicle);
+		vehicleCollisionRightBound(map.vehicle);
 		repaint();
 	}
 
@@ -81,19 +82,27 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	public void vehicleBoundaryRightBound(Vehicle[] vehicleArray) {
 		for (int i = 0; i < vehicleArray.length; i++) {
 			if (vehicleArray[i].getVehiclePosX() >= 640.0) {
-			vehicleArray[i].setVehiclePosX(-20.0);
+			vehicleArray[i].setVehiclePosX(0.0);
 			}
 		}
 	}
 	
 	public void vehicleBoundaryLeftBound(Vehicle[] vehicleArray) {
 		for (int i = 0; i < vehicleArray.length; i++) {
-			if (vehicleArray[i].getVehiclePosX() <= -20.0) {
+			if (vehicleArray[i].getVehiclePosX() <= 0.0) {
 				vehicleArray[i].setVehiclePosX(640.0);
 			}
 		}
 	}
 
+	public void vehicleCollisionRightBound(Vehicle[] vehicleArray) {
+		for (int i = 0; i < vehicleArray.length; i++) {
+			if (map.frog.getPlayerPosX() - vehicleArray[i].getVehiclePosX() < 30 && vehicleArray[i].getVehiclePosY() == map.frog.getPlayerPosY()) {
+				System.exit(0); //Will close program on collision.
+			}
+		}
+	
+	}
 
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
