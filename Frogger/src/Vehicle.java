@@ -23,4 +23,12 @@ public class Vehicle {
 	public void moveVehicleX() {
 		vehiclePosX += this.vehicleAccelerationX;
 	}
+	
+	public void setVehiclePosX(double inputLocation) {
+		this.vehiclePosX = inputLocation;
+	}
+	
+	public void setVehiclePosY(int inputLocation) {
+		this.vehiclePosY = inputLocation;
+	}
 }

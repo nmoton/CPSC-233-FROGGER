@@ -14,8 +14,14 @@ public class Map extends JPanel implements ActionListener{
 
 	private Timer timer;
 	private int delay = 10;
+	
+	//Frog for testing.
 	public Frog frog = new Frog();
-	public Vehicle vehicle = new Vehicle(0, 256, 0.5);
+	
+	//Vehicle array for testing.
+	Vehicle[] vehicle = new Vehicle[] {
+			new Vehicle(0.0, 64, 0.75), new Vehicle(0.0, 128, 0.75)
+	};
 	
 	public Map(){
 		setFocusable(true);
@@ -41,11 +47,14 @@ public class Map extends JPanel implements ActionListener{
 		g2.setColor(Color.green);
 		g2.drawRect(frog.getPlayerPosX(), frog.getPlayerPosY(), 32, 32);
 	
-		//Vehicle for testing.
+		//Vehicles for testing.
 		g2.setColor(Color.red);
-		vehicle.moveVehicleX();
-		Rectangle2D rect = new Rectangle2D.Double(vehicle.getVehiclePosX(), vehicle.getVehiclePosY(), 32, 32);
+		vehicle[0].moveVehicleX();
+		Rectangle2D rect = new Rectangle2D.Double(vehicle[0].getVehiclePosX(), vehicle[0].getVehiclePosY(), 32, 32);
 		g2.fill(rect); 
+		vehicle[1].moveVehicleX();
+		Rectangle2D rect2 = new Rectangle2D.Double(vehicle[1].getVehiclePosX(), vehicle[1].getVehiclePosY(), 32, 32);
+		g2.fill(rect2);
 	}
 
 	public void actionPerformed(ActionEvent e) {

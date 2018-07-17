@@ -11,8 +11,6 @@ import javax.swing.Timer;
 
 public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
-	private int width = 0;
-	private int height = 0;
 	private Timer timer;
 	private int delay = 10;
 	
@@ -24,12 +22,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 		setFocusTraversalKeysEnabled(false);
 		timer = new Timer(delay, this);
 		timer.start();
-		
-		this.width = contentWidth;
-		this.height = contentHeight;
-		//Testing for content pane resolution.
-		System.out.println("Width:" + this.width);
-		System.out.println("Height:" + this.height);
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -37,6 +29,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		vehicleBoundaryRightBound(map.vehicle);
 		repaint();
 	}
 
@@ -84,6 +77,23 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			}
 		}
 	}
+	
+	public void vehicleBoundaryRightBound(Vehicle[] vehicleArray) {
+		for (int i = 0; i < vehicleArray.length; i++) {
+			if (vehicleArray[i].getVehiclePosX() >= 640.0) {
+			vehicleArray[i].setVehiclePosX(-20.0);
+			}
+		}
+	}
+	
+	public void vehicleBoundaryLeftBound(Vehicle[] vehicleArray) {
+		for (int i = 0; i < vehicleArray.length; i++) {
+			if (vehicleArray[i].getVehiclePosX() <= -20.0) {
+				vehicleArray[i].setVehiclePosX(640.0);
+			}
+		}
+	}
+
 
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
