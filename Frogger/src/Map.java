@@ -19,8 +19,20 @@ public class Map extends JPanel implements ActionListener{
 	public Frog frog = new Frog();
 	
 	//Vehicle array for testing.
-	Vehicle[] vehicle = new Vehicle[] {
-			new Vehicle(0.0, 64, 0.75), new Vehicle(0.0, 128, 0.75)
+	Vehicle[] vehicleRight64 = new Vehicle[] {
+			new Vehicle(0.0, 64, 0.75), new Vehicle(-128, 64, 0.75)
+	};
+	
+	Vehicle[] vehicleLeft = new Vehicle[] {
+			new Vehicle(0.0, 256, -0.75)
+	};
+	
+	Log[] logLeft = new Log[] {
+			new Log(0.0, 320, 0.75)
+	};
+	
+	Log[] logRight = new Log[] {
+			new Log(0.0, 352, 1.0)
 	};
 	
 	public Map(){
@@ -43,22 +55,37 @@ public class Map extends JPanel implements ActionListener{
 			//}
 		//}
 	
-		//Frog for testing.
 		g2.setColor(Color.black);
 		g2.fillRect(0, 0, 640, 480);
 		
+		g2.setColor(Color.cyan);
+		logLeft[0].moveLogX();
+		Rectangle2D rect4 = new Rectangle2D.Double(logLeft[0].getLogPosX(), logLeft[0].getLogPosY(), 64, 32);
+		g2.fill(rect4);
+		
+		logRight[0].moveLogX();
+		Rectangle2D rect5 = new Rectangle2D.Double(logRight[0].getLogPosX(), logRight[0].getLogPosY(), 96, 32);
+		g2.fill(rect5);
+		
 		g2.setColor(Color.green);
-		g2.drawRect(frog.getPlayerPosX(), frog.getPlayerPosY(), 32, 32);
+		Rectangle2D frogRect = new Rectangle2D.Double(frog.getPlayerPosX(), frog.getPlayerPosY(), 32, 32);
+		g2.fill(frogRect);
+		
 	
 		//Vehicles for testing.
 		g2.setColor(Color.red);
-		vehicle[0].moveVehicleX();
-		Rectangle2D rect = new Rectangle2D.Double(vehicle[0].getVehiclePosX(), vehicle[0].getVehiclePosY(), 32, 32);
+		vehicleRight64[0].moveVehicleX();
+		Rectangle2D rect = new Rectangle2D.Double(vehicleRight64[0].getVehiclePosX(), vehicleRight64[0].getVehiclePosY(), 32, 32);
 		g2.fill(rect); 
-		vehicle[1].moveVehicleX();
-		Rectangle2D rect2 = new Rectangle2D.Double(vehicle[1].getVehiclePosX(), vehicle[1].getVehiclePosY(), 32, 32);
+		vehicleRight64[1].moveVehicleX();
+		Rectangle2D rect2 = new Rectangle2D.Double(vehicleRight64[1].getVehiclePosX(), vehicleRight64[1].getVehiclePosY(), 32, 32);
 		g2.fill(rect2);
+		vehicleLeft[0].moveVehicleX();
+		Rectangle2D rect3 = new Rectangle2D.Double(vehicleLeft[0].getVehiclePosX(), vehicleLeft[0].getVehiclePosY(), 32, 32);
+		g2.fill(rect3);
+		
 	}
+
 
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub

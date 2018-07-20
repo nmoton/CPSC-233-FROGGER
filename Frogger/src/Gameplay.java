@@ -29,8 +29,14 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		vehicleBoundaryRightBound(map.vehicle);
-		vehicleCollisionRightBound(map.vehicle);
+		userOnLog2L(map.logLeft);
+		logBoundaryLeftBound(map.logRight);
+		vehicleBoundaryRightBound(map.vehicleRight64);
+		vehicleCollisionRightBound(map.vehicleRight64);
+		vehicleBoundaryLeftBound(map.vehicleLeft);
+		vehicleCollisionLeftBound(map.vehicleLeft);
+		logBoundaryLeftBound(map.logLeft);
+		
 		repaint();
 	}
 
@@ -82,7 +88,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	public void vehicleBoundaryRightBound(Vehicle[] vehicleArray) {
 		for (int i = 0; i < vehicleArray.length; i++) {
 			if (vehicleArray[i].getVehiclePosX() >= 640.0) {
-			vehicleArray[i].setVehiclePosX(0.0);
+			vehicleArray[i].setVehiclePosX(-30.0);
 			}
 		}
 	}
@@ -90,14 +96,15 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	public void vehicleBoundaryLeftBound(Vehicle[] vehicleArray) {
 		for (int i = 0; i < vehicleArray.length; i++) {
 			if (vehicleArray[i].getVehiclePosX() <= 0.0) {
-				vehicleArray[i].setVehiclePosX(640.0);
+				vehicleArray[i].setVehiclePosX(670.0);
 			}
 		}
 	}
 
 	public void vehicleCollisionRightBound(Vehicle[] vehicleArray) {
 		for (int i = 0; i < vehicleArray.length; i++) {
-			if (map.frog.getPlayerPosX() - vehicleArray[i].getVehiclePosX() < 30 && vehicleArray[i].getVehiclePosY() == map.frog.getPlayerPosY()) {
+			if (map.frog.getPlayerPosX() - vehicleArray[i].getVehiclePosX() < 32 && map.frog.getPlayerPosX() - vehicleArray[i].getVehiclePosX() > -32 &&
+					vehicleArray[i].getVehiclePosY() == map.frog.getPlayerPosY()) {
 				System.exit(0); //Will close program on collision.
 			}
 		}
@@ -105,7 +112,39 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	
 	public void vehicleCollisionLeftBound (Vehicle[] vehicleArray) {
 		for (int i = 0; i < vehicleArray.length; i++) {
-			if (vehicleArray[i].getVehiclePosX() - map.frog.getPlayerPosX() )
+			if (map.frog.getPlayerPosX() - vehicleArray[i].getVehiclePosX() > -32 && map.frog.getPlayerPosX() - vehicleArray[i].getVehiclePosX() < 32 &&
+					vehicleArray[i].getVehiclePosY() == map.frog.getPlayerPosY()){
+				System.exit(0); //Will close program on collision.
+			}
+		}
+	}
+	
+	public void logBoundaryRightBound (Log[] logArray) {
+		for (int i = 0; i < logArray.length; i++) {
+			if(logArray[i].getLogPosX() >= 640.0) {
+				logArray[i].setLogPosX(-30.0);
+			}
+		}
+	}
+	
+	public void logBoundaryLeftBound (Log[] logArray) {
+		for (int i = 0; i < logArray.length; i++) {
+			if (logArray[i].getLogPosX() <= -30) {
+				logArray[i].setLogPosX(640);
+			}
+		}
+	}
+	
+	public void userOnLog2L (Log[] logArray) {
+		for (int i = 0; i < logArray.length; i++) {
+			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -16 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -48 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+				map.frog.setPosX(logArray[i].getLogPosX() + 32);
+			}
+			
+			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -0 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -16 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+				map.frog.setPosX(logArray[i].getLogPosX());
+			}
+			
 		}
 	}
 

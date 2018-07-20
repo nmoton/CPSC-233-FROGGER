@@ -2,8 +2,8 @@ package frogger;
 
 public class Frog {
 	
-	private int playerPosX = 0;
-	private int playerPosY = 0;
+	private double playerPosX = 0;
+	private double playerPosY = 0;
 	
 	public void moveUp() {
 		this.playerPosY -= 32;
@@ -21,7 +21,7 @@ public class Frog {
 		this.playerPosX += 32;
 	}
 	
-	public void setPosX(int posX) {
+	public void setPosX(double posX) {
 		this.playerPosX = posX;
 	}
 	
@@ -29,11 +29,11 @@ public class Frog {
 		this.playerPosY = posY;
 	}
 	
-	public int getPlayerPosX() {
+	public double getPlayerPosX() {
 		return playerPosX;
 	}
 	
-	public int getPlayerPosY() {
+	public double getPlayerPosY() {
 		return playerPosY;
 	}
 }
