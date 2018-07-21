@@ -3,13 +3,17 @@ package frogger;
 public class Vehicle {
 	
 	private double vehiclePosX;
-	private int vehiclePosY;
+	private double vehiclePosY;
 	private double vehicleAccelerationX;
+	private int logLength;
+	private boolean logRightBound;
 	
-	public Vehicle(double setVehiclePosX, int setVehiclePosY, double setVehicleAccelerationX) {
+	public Vehicle(double setVehiclePosX, int setVehiclePosY, double setVehicleAccelerationX, int setLogLength, boolean setDirection) {
 		this.vehiclePosX = setVehiclePosX;
 		this.vehiclePosY = setVehiclePosY;
 		this.vehicleAccelerationX = setVehicleAccelerationX;
+		this.logLength = setLogLength;
+		this.logRightBound = setDirection;
 	}
 	
 	public double getVehiclePosX() {
@@ -18,6 +22,14 @@ public class Vehicle {
 	
 	public double getVehiclePosY() {
 		return this.vehiclePosY;
+	}
+	
+	public int getLogLength() {
+		return this.logLength;
+	}
+	
+	public boolean isVehicleRightBound() {
+		return this.logRightBound;
 	}
 	
 	public void moveVehicleX() {

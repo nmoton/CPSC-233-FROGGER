@@ -3,13 +3,17 @@ package frogger;
 public class Log {
 	
 	private double logPosX;
-	private int logPosY;
+	private double logPosY;
 	private double logAccelerationX;
+	private int logLength;
+	private boolean logRightBound;
 	
-	public Log(double setLogPosX, int setLogPosY, double setLogAccelerationX) {
+	public Log(double setLogPosX, double setLogPosY, double setLogAccelerationX, int setLogLength, boolean setDirection) {
 		this.logPosX = setLogPosX;
 		this.logPosY = setLogPosY;
 		this.logAccelerationX = setLogAccelerationX;
+		this.logLength = setLogLength;
+		this.logRightBound = setDirection;
 	}
 	
 	public double getLogPosX() {
@@ -18,6 +22,14 @@ public class Log {
 	
 	public double getLogPosY() {
 		return this.logPosY;
+	}
+	
+	public int getlogLength() {
+		return this.logLength;
+	}
+	
+	public boolean isLogRightBound() {
+		return this.logRightBound;
 	}
 	
 	public void moveLogLeftX() {
@@ -34,5 +46,9 @@ public class Log {
 	
 	public void setLogPosY(int inputLocation) {
 		this.logPosY = inputLocation;
+	}
+	
+	public void setLogDirection(boolean setDirection) {
+		this.logRightBound = setDirection;
 	}
 }

@@ -3,13 +3,15 @@ package frogger;
 public class Turtle {
 	
 	private double turtlePosX;
-	private int turtlePosY;
+	private double turtlePosY;
 	private double turtleAccelerationX;
+	private int turtleLength;
 	
-	public Turtle(double setTurtlePosX, int setTurtlePosY, double setTurtleAccelerationX) {
+	public Turtle(double setTurtlePosX, double setTurtlePosY, double setTurtleAccelerationX, int setTurtleLength) {
 		this.turtlePosX = setTurtlePosX;
 		this.turtlePosY = setTurtlePosY;
 		this.turtleAccelerationX = setTurtleAccelerationX;
+		this.turtleLength = setTurtleLength;
 	}
 	
 	public double getLogPosX() {
@@ -18,6 +20,10 @@ public class Turtle {
 	
 	public double getLogPosY() {
 		return this.turtlePosY;
+	}
+	
+	public double getTurtleLength() {
+		return this.turtleLength;
 	}
 	
 	public void moveLogX() {

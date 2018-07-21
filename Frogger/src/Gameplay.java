@@ -1,10 +1,13 @@
 package frogger;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.geom.Rectangle2D;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -29,10 +32,78 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		userOnLog7R(map.logRight);
-		logBoundaryRightBound(map.logRight);
-		
+		checkLogs(map.logArray);
 		repaint();
+	}
+	
+	public void checkLogs(Log[][] logArray) {
+		for (int i = 0; i < logArray.length; i++) {
+			for (int j = 0; j < logArray[i].length; j++) {
+				
+				if (logArray[i][j].isLogRightBound() == true) {
+					logBoundaryRightBound(logArray[i]);
+					
+					if (logArray[i][j].getlogLength() == 3) {
+						userOnLog3R(logArray[i]);
+				
+					} 
+					else if (logArray[i][j].getlogLength() == 5) {
+						userOnLog5R(logArray[i]);
+						
+					} 
+					else {
+						userOnLog7R(logArray[i]);
+					}
+				}
+				
+				else if (logArray[i][j].isLogRightBound() == false) {
+					logBoundaryLeftBound(logArray[i]);
+					
+					if (logArray[i][j].getlogLength() == 3) {
+						userOnLog3L(logArray[i]);
+					
+					} 
+					else if (logArray[i][j].getlogLength() == 5) {
+						userOnLog5L(logArray[i]);
+						
+					} 
+					else {
+						userOnLog7L(logArray[i]);
+					}
+				}
+			}
+		}
+	}
+
+	public void checkVehicles(Vehicle[][] vehicleArray) {
+		for (int i = 0; i < vehicleArray.length; i++) {
+			for (int j = 0; j < vehicleArray[i].length; j++) {
+				
+				if (vehicleArray[i][j].isVehicleRightBound() == true) {
+					vehicleBoundaryRightBound(vehicleArray[i]);
+					vehicleCollisionRightBound(vehicleArray[i]);
+				}
+				else if (vehicleArray[i][j].isVehicleRightBound() == false) {
+					vehicleBoundaryLeftBound(vehicleArray[i]);
+					vehicleCollisionLeftBound(vehicleArray[i]);
+				}
+			}
+		}
+	}
+	
+	public void checkTurtles(Turtle[][] turtleArray) {
+		for (int i = 0; i < turtleArray.length; i++) {
+			for (int j = 0; j < turtleArray[i].length; j++) {
+				turtleBoundaryLeftBound(turtleArray[i]);
+				
+				if (turtleArray[i][j].getTurtleLength() == 2) {
+					userOnTurtle2L(turtleArray[i]);
+				}
+				else if (turtleArray[i][j].getTurtleLength() == 3) {
+					userOnTurtle3L(turtleArray[i]);
+				}
+			}
+		}
 	}
 
 	public void keyTyped(KeyEvent e) {
@@ -124,36 +195,69 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	
 	public void logBoundaryLeftBound (Log[] logArray) {
 		for (int i = 0; i < logArray.length; i++) {
-			if (logArray[i].getLogPosX() <= -30) {
+			if (logArray[i].getLogPosX() <= -256.0) {
 				logArray[i].setLogPosX(640);
 			}
 		}
 	}
 	
-	public void userOnLog2L (Log[] logArray) { //For Left-Bound Logs
-		for (int i = 0; i < logArray.length; i++) {
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -16 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -48 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
-				map.frog.setPosX(logArray[i].getLogPosX() + 32);
+	public void turtleBoundaryLeftBound (Turtle[] turtleArray) {
+		for (int i = 0; i < turtleArray.length; i++) {
+			if (turtleArray[i].getLogPosX() <= -64.0) {
+				turtleArray[i].setLogPosX(640);
+			}
+		}
+	}
+	
+	public void userOnTurtle2L (Turtle[] turtleArray) { //For Left-Bound Turtles
+		for (int i = 0; i < turtleArray.length; i++) {
+			if (turtleArray[i].getLogPosX() - map.frog.getPlayerPosX() < -16 && turtleArray[i].getLogPosX() - map.frog.getPlayerPosX() > -48 && 
+					turtleArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+				map.frog.setPosX(turtleArray[i].getLogPosX() + 32);
 			}
 			
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < 16 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -16 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
-				map.frog.setPosX(logArray[i].getLogPosX());
+			else if (turtleArray[i].getLogPosX() - map.frog.getPlayerPosX() < 16 && turtleArray[i].getLogPosX() - map.frog.getPlayerPosX() > -16 && 
+					turtleArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+				map.frog.setPosX(turtleArray[i].getLogPosX());
+			}
+
+		}
+	}
+	
+	public void userOnTurtle3L (Turtle[] turtleArray) { //for Left-Bound Turtles
+		for (int i = 0; i < turtleArray.length; i++) {
+			if (turtleArray[i].getLogPosX() - map.frog.getPlayerPosX() < -48 && turtleArray[i].getLogPosX() - map.frog.getPlayerPosX() > -64 && 
+					turtleArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+				map.frog.setPosX(turtleArray[i].getLogPosX() + 64);
+			}
+			
+			if (turtleArray[i].getLogPosX() - map.frog.getPlayerPosX() < -16 && turtleArray[i].getLogPosX() - map.frog.getPlayerPosX() > -48 && 
+					turtleArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+				map.frog.setPosX(turtleArray[i].getLogPosX() + 32);
+			}
+			
+			if (turtleArray[i].getLogPosX() - map.frog.getPlayerPosX() < 16 && turtleArray[i].getLogPosX() - map.frog.getPlayerPosX() > -16 && 
+					turtleArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+				map.frog.setPosX(turtleArray[i].getLogPosX());
 			}
 		}
 	}
 	
 	public void userOnLog3R (Log[] logArray) {
 		for (int i = 0; i < logArray.length; i++) {
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -48 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -96 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -48 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -96 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX() + 64);
 			}
 			
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -16 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -48 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -16 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -48 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX() + 32);
 			}
 			
 			//8 is REQUIRED in order to allow the log to move to a maximum speed of 8 pixels/period.
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < 8 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -16 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < 8 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -16 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX());
 			}
 		}
@@ -161,72 +265,95 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 		
 	public void userOnLog5R (Log[] logArray) {
 		for (int i = 0; i < logArray.length; i++) {
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -112 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -180 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -112 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -180 &&
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX() + 128);
 			}
 			
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -80 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -112 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -80 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -112 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX() + 96);
 			}
 			
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -48 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -80 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -48 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -80 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX() + 64);
 			}
 			
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -16 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -48 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -16 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -48 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX() + 32);
 			}
 			
 			//8 is REQUIRED in order to allow the log to move to a maximum speed of 8 pixels/period.
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < 8 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -16 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < 8 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -16 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX());
 			}
 		}
 	}
 	
-	public void userOnLog7R (Log[] logArray) {
+	public boolean userOnLog7R (Log[] logArray) {
 		for (int i = 0; i < logArray.length; i++) {
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -176 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -240 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -176 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -240 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX() + 192);
+				return true;
 			}
 			
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -144 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -176 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			else if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -144 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -176 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX() + 160);
+				return true;
 			}
 			
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -112 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -144 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			else if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -112 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -144 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX() + 128);
+				return true;
 			}
 			
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -80 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -112 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			else if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -80 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -112 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX() + 96);
+				return true;
 			}
 			
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -48 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -80 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			else if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -48 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -80 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX() + 64);
+				return true;
 			}
 			
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -16 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -48 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			else if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -16 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -48 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX() + 32);
+				return true;
 			}
 			
 			//8 is REQUIRED in order to allow the log to move to a maximum speed of 8 pixels/period.
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < 8 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -16 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			else if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < 8 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -16 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX());
+				return true;
 			}
 		}
+		return false;
 	}
 	
 	public void userOnLog3L (Log[] logArray) { //For Left-Bound Logs
 		for (int i = 0; i < logArray.length; i++) {
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -48 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -64 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -48 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -64 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX() + 64);
 			}
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -16 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -48 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -16 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -48 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX() + 32);
 			}
 			
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < 16 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -16 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < 16 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -16 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX());
 			}
 		}
@@ -234,23 +361,28 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	
 	public void userOnLog5L (Log[] logArray) {
 		for (int i = 0; i < logArray.length; i++) {
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -112 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -144 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -112 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -144 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX() + 128);
 			}
 			
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -80 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -112 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -80 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -112 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX() + 96);
 			}
 			
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -48 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -80 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -48 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -80 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX() + 64);
 			}
 			
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -16 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -48 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -16 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -48 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX() + 32);
 			}
 	
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < 16 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -16 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < 16 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -16 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX());
 			}
 		}
@@ -258,31 +390,38 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	
 	public void userOnLog7L (Log[] logArray) {
 		for (int i = 0; i < logArray.length; i++) {
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -176 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -208 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -176 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -208 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX() + 192);
 			}
 		
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -144 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -176 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -144 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -176 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX() + 160);
 			}
 			
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -112 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -144 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -112 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -144 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX() + 128);
 			}
 		
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -80 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -112 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -80 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -112 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX() + 96);
 			}
 		
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -48 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -80 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -48 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -80 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX() + 64);
 			}
 		
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -16 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -48 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < -16 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -48 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX() + 32);
 			}
 
-			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < 16 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -16 && logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
+			if (logArray[i].getLogPosX() - map.frog.getPlayerPosX() < 16 && logArray[i].getLogPosX() - map.frog.getPlayerPosX() > -16 && 
+					logArray[i].getLogPosY() == map.frog.getPlayerPosY()) {
 				map.frog.setPosX(logArray[i].getLogPosX());
 			}
 		}
