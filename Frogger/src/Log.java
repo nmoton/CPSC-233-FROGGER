@@ -20,8 +20,12 @@ public class Log {
 		return this.logPosY;
 	}
 	
-	public void moveLogX() {
+	public void moveLogLeftX() {
 		this.logPosX -= logAccelerationX;
+	}
+	
+	public void moveLogRightX() {
+		this.logPosX += logAccelerationX;
 	}
 	
 	public void setLogPosX(double inputLocation) {
