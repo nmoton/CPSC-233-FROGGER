@@ -35,13 +35,17 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	
 	public void checkLogs(Log[][] logArray) {
 		for (int i = 0; i < logArray.length; i++) {
+			int countFalse = 0; //Keep track of how many logs the user is not stepping on.
+			
 			for (int j = 0; j < logArray[i].length; j++) {
 				
 				if (logArray[i][j].isLogRightBound() == true) {
 					logBoundaryRightBound(logArray[i][j]);
 					
 					if (logArray[i][j].getlogLength() == 3) {
-						userOnLog3R(logArray[i][j]);
+						if (userOnLog3R(logArray[i][j]) == false) {
+							checkWater(0, 0, 128, 128, map.frog.getPlayerPosX(), map.frog.getPlayerPosY());
+						}
 					} 
 					else if (logArray[i][j].getlogLength() == 5) {
 						userOnLog5R(logArray[i][j]);
@@ -55,7 +59,12 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 					logBoundaryLeftBound(logArray[i][j]);
 					
 					if (logArray[i][j].getlogLength() == 3) {
-						userOnLog3L(logArray[i][j]);
+						if (userOnLog3L(logArray[i][j]) == false) {
+							countFalse++;
+						}
+						if (countFalse == logArray[i].length) { //If the user is not stepping on all logs, check if user is on water
+							checkWater(0, 0, 640, 32, map.frog.getPlayerPosX(), map.frog.getPlayerPosY());
+						}
 					} 
 					else if (logArray[i][j].getlogLength() == 5) {
 						userOnLog5L(logArray[i][j]);
@@ -96,6 +105,12 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 					userOnTurtle3L(turtleArray[i][j]);
 				}
 			}
+		}
+	}
+	
+	public void checkWater(int xBoundary1, int yBoundary1, int xBoundary2, int yBoundary2, double userPosX, double userPosY) {
+		if (userPosX >= xBoundary1 && userPosX <= xBoundary2 && userPosY >= yBoundary1 && userPosY <= yBoundary2) {
+			System.exit(0);
 		}
 	}
 
