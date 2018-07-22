@@ -3,7 +3,7 @@ package frogger;
 public class Frog {
 	
 	private double playerPosX = 0;
-	private double playerPosY = 0;
+	private double playerPosY = 448;
 	
 	public void moveUp() {
 		this.playerPosY -= 32;

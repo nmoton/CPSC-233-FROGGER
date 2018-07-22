@@ -14,11 +14,11 @@ public class Turtle {
 		this.turtleLength = setTurtleLength;
 	}
 	
-	public double getLogPosX() {
+	public double getTurtlePosX() {
 		return this.turtlePosX;
 	}
 	
-	public double getLogPosY() {
+	public double getTurtlePosY() {
 		return this.turtlePosY;
 	}
 	
@@ -26,15 +26,15 @@ public class Turtle {
 		return this.turtleLength;
 	}
 	
-	public void moveLogX() {
+	public void moveTurtleX() {
 		this.turtlePosX -= turtleAccelerationX;
 	}
 	
-	public void setLogPosX(double inputLocation) {
+	public void setTurtlePosX(double inputLocation) {
 		this.turtlePosX = inputLocation;
 	}
 	
-	public void setLogPosY(int inputLocation) {
+	public void setTurtlePosY(int inputLocation) {
 		this.turtlePosY = inputLocation;
 	}
 }

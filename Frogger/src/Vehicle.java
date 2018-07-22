@@ -5,15 +5,15 @@ public class Vehicle {
 	private double vehiclePosX;
 	private double vehiclePosY;
 	private double vehicleAccelerationX;
-	private int logLength;
-	private boolean logRightBound;
+	private int vehicleLength;
+	private boolean vehicleRightBound;
 	
-	public Vehicle(double setVehiclePosX, int setVehiclePosY, double setVehicleAccelerationX, int setLogLength, boolean setDirection) {
+	public Vehicle(double setVehiclePosX, int setVehiclePosY, double setVehicleAccelerationX, int setVehicleLength, boolean setDirection) {
 		this.vehiclePosX = setVehiclePosX;
 		this.vehiclePosY = setVehiclePosY;
 		this.vehicleAccelerationX = setVehicleAccelerationX;
-		this.logLength = setLogLength;
-		this.logRightBound = setDirection;
+		this.vehicleLength = setVehicleLength;
+		this.vehicleRightBound = setDirection;
 	}
 	
 	public double getVehiclePosX() {
@@ -24,17 +24,22 @@ public class Vehicle {
 		return this.vehiclePosY;
 	}
 	
-	public int getLogLength() {
-		return this.logLength;
+	public int getVehicleLength() {
+		return this.vehicleLength;
 	}
 	
 	public boolean isVehicleRightBound() {
-		return this.logRightBound;
+		return this.vehicleRightBound;
 	}
 	
-	public void moveVehicleX() {
+	public void moveVehicleLeftX() {
+		vehiclePosX -= this.vehicleAccelerationX;
+	}
+	
+	public void moveVehicleRightX() {
 		vehiclePosX += this.vehicleAccelerationX;
 	}
+	
 	
 	public void setVehiclePosX(double inputLocation) {
 		this.vehiclePosX = inputLocation;

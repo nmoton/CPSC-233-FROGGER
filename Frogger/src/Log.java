@@ -24,7 +24,7 @@ public class Log {
 		return this.logPosY;
 	}
 	
-	public int getlogLength() {
+	public int getLogLength() {
 		return this.logLength;
 	}
 	
