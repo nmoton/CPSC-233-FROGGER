@@ -14,18 +14,18 @@ public class GameGraphics extends JPanel {
 	private Turtle[][] turtleArray;
 	private Vehicle[][] vehicleArray;
 	
-	
 	public GameGraphics(){
 	}
+	
 
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		
-		//Drawing background
+		//Drawing background:
 		g2.setColor(Color.black);
 		g2.fillRect(0, 0, 640, 480);
 		
-		//Drawing Logs
+		//Drawing Logs:
 		g2.setColor(Color.cyan);
 		for (int i = 0; i < logArray.length; i++) {
 			for (int j = 0; j < logArray[i].length; j++) {
@@ -42,36 +42,35 @@ public class GameGraphics extends JPanel {
 				}
 			}
 		}
+		//Drawing Vehicles:
+		g2.setColor(Color.red);
+		for (int i = 0; i < vehicleArray.length; i++) {
+			for (int j = 0; j < vehicleArray[i].length; j++) {
+				if (vehicleArray[i][j].isVehicleRightBound() == true) {
+					vehicleArray[i][j].moveVehicleRightX();
+					Rectangle2D vehicleRight = new Rectangle2D.Double(vehicleArray[i][j].getVehiclePosX(), vehicleArray[i][j].getVehiclePosY(), (vehicleArray[i][j].getVehicleLength() * 32), 32);
+					g2.fill(vehicleRight);
+				}
+					
+				if (vehicleArray[i][j].isVehicleRightBound() == false) {
+					vehicleArray[i][j].moveVehicleLeftX();
+					Rectangle2D vehicleLeft = new Rectangle2D.Double(vehicleArray[i][j].getVehiclePosX(), vehicleArray[i][j].getVehiclePosY(), (vehicleArray[i][j].getVehicleLength() * 32), 32);
+					g2.fill(vehicleLeft);
+				}
+			}
+		}
 		
-//		//Drawing Vehicles
-//		g2.setColor(Color.red);
-//		for (int i = 0; i < vehicleArray.length; i++) {
-//			for (int j = 0; j < vehicleArray[i].length; j++) {
-//				if (vehicleArray[i][j].isVehicleRightBound() == true) {
-//					vehicleArray[i][j].moveVehicleRightX();
-//					Rectangle2D vehicleRight = new Rectangle2D.Double(vehicleArray[i][j].getVehiclePosX(), vehicleArray[i][j].getVehiclePosY(), (vehicleArray[i][j].getVehicleLength() * 32), 32);
-//					g2.fill(vehicleRight);
-//				}
-//					
-//				if (vehicleArray[i][j].isVehicleRightBound() == false) {
-//					vehicleArray[i][j].moveVehicleLeftX();
-//					Rectangle2D vehicleLeft = new Rectangle2D.Double(vehicleArray[i][j].getVehiclePosX(), vehicleArray[i][j].getVehiclePosY(), (vehicleArray[i][j].getVehicleLength() * 32), 32);
-//					g2.fill(vehicleLeft);
-//				}
-//			}
-//		}
-//		
-//		//Drawing Turtles
-//		g2.setColor(Color.yellow);
-//		for (int i = 0; i < turtleArray.length; i++) {
-//			for (int j = 0; j < turtleArray[i].length; j++) {
-//				turtleArray[i][j].moveTurtleX();
-//				Rectangle2D turtleLeft = new Rectangle2D.Double(turtleArray[i][j].getTurtlePosX(), turtleArray[i][j].getTurtlePosY(), (turtleArray[i][j].getTurtleLength() * 32), 32);
-//				g2.fill(turtleLeft);
-//			}
-//		}
+		//Drawing Turtles:
+		g2.setColor(Color.yellow);
+		for (int i = 0; i < turtleArray.length; i++) {
+			for (int j = 0; j < turtleArray[i].length; j++) {
+				turtleArray[i][j].moveTurtleX();
+				Rectangle2D turtleLeft = new Rectangle2D.Double(turtleArray[i][j].getTurtlePosX(), turtleArray[i][j].getTurtlePosY(), (turtleArray[i][j].getTurtleLength() * 32), 32);
+				g2.fill(turtleLeft);
+			}
+		}
 		
-		//Drawing Frog
+		//Drawing Frog:
 		g2.setColor(Color.green);
 		Rectangle2D frogRect = new Rectangle2D.Double(userFrog.getPlayerPosX(), userFrog.getPlayerPosY(), 32, 32);
 		g2.fill(frogRect);

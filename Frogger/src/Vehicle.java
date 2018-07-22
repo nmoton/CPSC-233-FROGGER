@@ -8,7 +8,7 @@ public class Vehicle {
 	private int vehicleLength;
 	private boolean vehicleRightBound;
 	
-	public Vehicle(double setVehiclePosX, int setVehiclePosY, double setVehicleAccelerationX, int setVehicleLength, boolean setDirection) {
+	public Vehicle(double setVehiclePosX, double setVehiclePosY, double setVehicleAccelerationX, int setVehicleLength, boolean setDirection) {
 		this.vehiclePosX = setVehiclePosX;
 		this.vehiclePosY = setVehiclePosY;
 		this.vehicleAccelerationX = setVehicleAccelerationX;

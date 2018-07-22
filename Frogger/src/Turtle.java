@@ -22,12 +22,12 @@ public class Turtle {
 		return this.turtlePosY;
 	}
 	
-	public double getTurtleLength() {
+	public int getTurtleLength() {
 		return this.turtleLength;
 	}
 	
 	public void moveTurtleX() {
-		this.turtlePosX -= turtleAccelerationX;
+		this.turtlePosX -= this.turtleAccelerationX;
 	}
 	
 	public void setTurtlePosX(double inputLocation) {

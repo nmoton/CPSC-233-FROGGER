@@ -33,11 +33,11 @@ public class Log {
 	}
 	
 	public void moveLogLeftX() {
-		this.logPosX -= logAccelerationX;
+		this.logPosX -= this.logAccelerationX;
 	}
 	
 	public void moveLogRightX() {
-		this.logPosX += logAccelerationX;
+		this.logPosX += this.logAccelerationX;
 	}
 	
 	public void setLogPosX(double inputLocation) {
