@@ -2,7 +2,7 @@
  * @author T:01 Team 3
  * Frogger is the class that is run and incorporates the other classes in a game format.
  *
- * The boolean variable running helps loo[ the game until the user enters quit in the
+ * The boolean variable running helps loop the game until the user enters quit in the
  * main menu.
  *
  */

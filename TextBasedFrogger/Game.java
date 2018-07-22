@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 /**
  * @author T:01 Team 3
  * Game is the class which operates the main gameplay. It creates a 10 by 10 grid via print statements
@@ -24,10 +22,9 @@ public class Game{
      * Method that runs the main text based frogger game.
      */
     public void runGame(){
-        //Local Variables/Instances
-        Scanner keyboard = new Scanner(System.in);
         /**
-         * Reset game instance variables to starting positions so that if user chooses to re-play the game.
+         * Place frogs and cars in starting positions everytime you start running the game.
+         * Reset hit boolean variables.
          */
         playing = true;
         frog = new Frog();
@@ -37,10 +34,14 @@ public class Game{
         car4 = new Car(9,6);
         car5 = new Car(1,1);
         car6 = new Car(6,2);
+        boolean hit = false;
+        boolean hit2 = false;
 
+        /**
+         * Loop the game until user reaches the top or until the user dies.
+         */
         while(playing) {
-            boolean hit = false;
-            boolean hit2 = false;
+
             /**
              * Prints a grid, representing the frog as an F, the cars as arrows and filling the
              * rest of the grid with " ".
@@ -102,12 +103,8 @@ public class Game{
                     System.out.println("\nYOU DIED\n");
                     playing = false;
                 }
-
             }
-
-
         }
-
     }
 
     /***

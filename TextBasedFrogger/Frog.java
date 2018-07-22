@@ -57,18 +57,33 @@ public class Frog{
             }
             else if(lowerCaseInput.equals("s")){
                 validInput = true;
-                frogY++;
+                if (frogY == 9){
+                    frogY = 9;
+                }
+                else{
+                    frogY++;
+                }
             }
             else if(lowerCaseInput.equals("a")){
-                frogX--;
                 validInput = true;
+                if (frogX == 0){
+                    frogX = 0;
+                }
+                else {
+                    frogX--;
+                }
             }
             else if(lowerCaseInput.equals("d")){
-                frogX++;
                 validInput = true;
+                if (frogX == 9){
+                    frogX = 9;
+                }
+                else{
+                    frogX++;
+                }
             }
             else{
-                System.out.println("That is not a valid Input.");
+                System.out.println("\nThat is not a valid Input.\n");
             }
 
 
