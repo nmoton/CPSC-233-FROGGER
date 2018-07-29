@@ -28,6 +28,10 @@ public class Vehicle {
 		return this.vehicleLength;
 	}
 	
+	public double getVehicleAcceleration() {
+		return this.vehicleAccelerationX;
+	}
+	
 	public boolean isVehicleRightBound() {
 		return this.vehicleRightBound;
 	}
