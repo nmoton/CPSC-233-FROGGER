@@ -12,10 +12,16 @@ public class Map{
 	private double frogStartingY = 448;
 	
 	//End zone boundaries:
-	private int endZoneXBoundary1 = 256;
-	private int endZoneYBoundary1 = 32;
-	private int endZoneXBoundary2 = 320;
-	private int endZoneYBoundary2 = 64;
+	private int endZoneXBoundary1 = 0;
+	private int endZoneYBoundary1 = 0;
+	private int endZoneXBoundary2 = 0;
+	private int endZoneYBoundary2 = 0;
+	
+	//Water zone:
+	private int waterZoneXBoundary1 = 0;
+	private int waterZoneYBoundary1 = 0;
+	private int waterZoneXBoundary2 = 0;
+	private int waterZoneYBoundary2 = 0;
 	
 	//Frog for testing (LEAVE DEFAULT):
 	public Frog frog = new Frog(frogStartingX, frogStartingY);
@@ -33,7 +39,7 @@ public class Map{
 	public Log[][] logArray = {
 			//Right-bound log @ y = 96.0, traveling at speed of 1.0, gaps of 224.0, and length of 5:
 			{new Log (0.0, 96.0, 1.5, 5, true), new Log (224.0, 96.0, 1.5, 5, true), new Log (448.0, 96.0, 1.5, 5, true),
-				new Log (672.0, 96.0, 1.5, 7, true)}, 
+				new Log (0.0, 672.0, 1.5, 5, true)}, 
 			
 			//Right-bound log @ y = 160, traveling at speed of 1.25, gaps of 228.0, and various lengths of 7:
 			{new Log (0.0, 160, 1.25, 7, true), new Log (416.0, 160.0, 1.25, 7, true)},
@@ -102,6 +108,22 @@ public class Map{
 	
 	public int getEndZoneYBoundary2() {
 		return this.endZoneYBoundary2;
+	}
+	
+	public int getWaterZoneXBoundary1() {
+		return this.waterZoneXBoundary1;
+	}
+	
+	public int getWaterZoneYBoundary1() {
+		return this.waterZoneYBoundary1;
+	}
+	
+	public int getWaterZoneXBoundary2() {
+		return this.waterZoneXBoundary2;
+	}
+	
+	public int getWaterZoneYBoundary2() {
+		return this.waterZoneYBoundary2;
 	}
 
 }
