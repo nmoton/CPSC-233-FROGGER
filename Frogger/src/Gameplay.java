@@ -14,6 +14,16 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	private Timer timer;
 	private int delay = 10;
 	
+	
+/**
+* 
+* CHANGE THESE VALUES BELOW TO ENABLE/DISABLE COLLISIONS, WATER DETECTION, AND END-ZONES:
+* 
+*/
+	private static boolean TOGGLE_COLLISION = false;
+	private static boolean TOGGLE_WATER = false;
+	private static boolean TOGGLE_ENDZONE = false;
+	
 	private Map map = new Map();
 	
 	public Gameplay(int contentWidth, int contentHeight) {
@@ -31,8 +41,10 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		//Checks to see if user entered the end zone:
-		checkEndZone(map.getEndZoneXBoundary1(), map.getEndZoneYBoundary1(), map.getEndZoneXBoundary2(),
-				map.getEndZoneYBoundary2(), map.frog.getPlayerPosX(), map.frog.getPlayerPosY());
+		if (TOGGLE_ENDZONE) {
+			checkEndZone(map.getEndZoneXBoundary1(), map.getEndZoneYBoundary1(), map.getEndZoneXBoundary2(),
+					map.getEndZoneYBoundary2(), map.frog.getPlayerPosX(), map.frog.getPlayerPosY());
+		}
 		
 		//Checks logs, vehicles, and trucks for collisions:
 		checkLogs(map.logArray);
@@ -56,30 +68,34 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 						if (userOnLog3R(logArray[i][j]) == false) {
 							countFalse++;
 						}
-						if (countFalse == logArray[i].length) {
-							checkWater(map.getEndZoneXBoundary1(), map.getEndZoneYBoundary1(), map.getEndZoneXBoundary2(), 
-									map.getEndZoneYBoundary2(), map.frog.getPlayerPosX(), map.frog.getPlayerPosY());
+						
+						if (countFalse == logArray[i].length && TOGGLE_WATER) {
+							checkWater(0, logArray[i][j].getLogPosY(), 640, logArray[i][j].getLogPosY() + 31, 
+									map.frog.getPlayerPosX(), map.frog.getPlayerPosY());
+							}
 						}
-					}
+	
 					else if (logArray[i][j].getLogLength() == 5) {
 						if (userOnLog5R(logArray[i][j]) == false) {
 							countFalse++;
 						}
-						if (countFalse == logArray[i].length) {
-							checkWater(map.getEndZoneXBoundary1(), map.getEndZoneYBoundary1(), map.getEndZoneXBoundary2(), 
-									map.getEndZoneYBoundary2(), map.frog.getPlayerPosX(), map.frog.getPlayerPosY());
+						if (countFalse == logArray[i].length && TOGGLE_WATER) {
+							checkWater(0, logArray[i][j].getLogPosY(), 640, logArray[i][j].getLogPosY() + 31, 
+									map.frog.getPlayerPosX(), map.frog.getPlayerPosY());
 						}
 					} 
 					else {
 						if (userOnLog7R(logArray[i][j]) == false) {
 							countFalse++;
 						}
-						if (countFalse == logArray[i].length) {
-							checkWater(map.getEndZoneXBoundary1(), map.getEndZoneYBoundary1(), map.getEndZoneXBoundary2(), 
-									map.getEndZoneYBoundary2(), map.frog.getPlayerPosX(), map.frog.getPlayerPosY());
+						if (countFalse == logArray[i].length && TOGGLE_WATER) {
+							checkWater(0, logArray[i][j].getLogPosY(), 640, logArray[i][j].getLogPosY() + 31, 
+									map.frog.getPlayerPosX(), map.frog.getPlayerPosY());
 						}
 					}
 				}
+	
+				
 				else if (logArray[i][j].isLogRightBound() == false) {
 					logBoundaryLeftBound(logArray[i][j]);
 					
@@ -87,27 +103,27 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 						if (userOnLog3L(logArray[i][j]) == false) {
 							countFalse++;
 						}
-						if (countFalse == logArray[i].length) {
-							checkWater(map.getEndZoneXBoundary1(), map.getEndZoneYBoundary1(), map.getEndZoneXBoundary2(), 
-									map.getEndZoneYBoundary2(), map.frog.getPlayerPosX(), map.frog.getPlayerPosY());
+						if (countFalse == logArray[i].length && TOGGLE_WATER) {
+							checkWater(0, logArray[i][j].getLogPosY(), 640, logArray[i][j].getLogPosY() + 31, 
+									map.frog.getPlayerPosX(), map.frog.getPlayerPosY());
 						}
 					} 
 					else if (logArray[i][j].getLogLength() == 5) {
 						if (userOnLog5L(logArray[i][j]) == false) {
 							countFalse++;
 						}
-						if (countFalse == logArray[i].length) {
-							checkWater(map.getEndZoneXBoundary1(), map.getEndZoneYBoundary1(), map.getEndZoneXBoundary2(), 
-									map.getEndZoneYBoundary2(), map.frog.getPlayerPosX(), map.frog.getPlayerPosY());
+						if (countFalse == logArray[i].length && TOGGLE_WATER) {
+							checkWater(0, logArray[i][j].getLogPosY(), 640, logArray[i][j].getLogPosY() + 31, 
+									map.frog.getPlayerPosX(), map.frog.getPlayerPosY());
 						}
 					} 
 					else {
 						if (userOnLog7L(logArray[i][j]) == false) {
 							countFalse++;
 						}
-						if (countFalse == logArray[i].length) {
-							checkWater(map.getEndZoneXBoundary1(), map.getEndZoneYBoundary1(), map.getEndZoneXBoundary2(), 
-									map.getEndZoneYBoundary2(), map.frog.getPlayerPosX(), map.frog.getPlayerPosY());
+						if (countFalse == logArray[i].length && TOGGLE_WATER) {
+							checkWater(0, logArray[i][j].getLogPosY(), 640, logArray[i][j].getLogPosY() + 31, 
+									map.frog.getPlayerPosX(), map.frog.getPlayerPosY());
 						}
 					}
 				}
@@ -121,11 +137,17 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 				
 				if (vehicleArray[i][j].isVehicleRightBound() == true) {
 					vehicleBoundaryRightBound(vehicleArray[i][j]);
+					
+					if (TOGGLE_COLLISION) {
 					vehicleCollisionRightBound(vehicleArray[i][j]);
+					}
 				}
 				else if (vehicleArray[i][j].isVehicleRightBound() == false) {
 					vehicleBoundaryLeftBound(vehicleArray[i][j]);
+					
+					if (TOGGLE_COLLISION) {
 					vehicleCollisionLeftBound(vehicleArray[i][j]);
+					}
 				}
 			}
 		}
@@ -133,20 +155,36 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	
 	public void checkTurtles(Turtle[][] turtleArray) {
 		for (int i = 0; i < turtleArray.length; i++) {
+			int countFalse = 0; //Keep track of how many turtles the user is not stepping on
+			
 			for (int j = 0; j < turtleArray[i].length; j++) {
 				turtleBoundaryLeftBound(turtleArray[i][j]);
 				
 				if (turtleArray[i][j].getTurtleLength() == 2) {
-					userOnTurtle2L(turtleArray[i][j]);
+					if (userOnTurtle2L(turtleArray[i][j]) == false){
+						countFalse++;
+					}
+					
+					if (countFalse == turtleArray[i].length && TOGGLE_WATER) {
+						checkWater(0, turtleArray[i][j].getTurtlePosY(), 640, turtleArray[i][j].getTurtlePosY() + 31, 
+								map.frog.getPlayerPosX(), map.frog.getPlayerPosY());
+					}
 				}
 				else if (turtleArray[i][j].getTurtleLength() == 3) {
-					userOnTurtle3L(turtleArray[i][j]);
+					if (userOnTurtle3L(turtleArray[i][j]) == false) {
+						countFalse++;
+					}
+					if (countFalse == turtleArray[i].length && TOGGLE_WATER) {
+						checkWater(0, turtleArray[i][j].getTurtlePosY(), 640, turtleArray[i][j].getTurtlePosY() + 31, 
+								map.frog.getPlayerPosX(), map.frog.getPlayerPosY());
+					}
 				}
+				
 			}
 		}
 	}
 	
-	public void checkWater(int xBoundary1, int yBoundary1, int xBoundary2, int yBoundary2, double userPosX, double userPosY) {
+	public void checkWater(int xBoundary1, double yBoundary1, int xBoundary2, double yBoundary2, double userPosX, double userPosY) {
 		if (userPosX >= xBoundary1 && userPosX <= xBoundary2 && userPosY >= yBoundary1 && userPosY <= yBoundary2) {
 			System.exit(0);
 		}
@@ -218,14 +256,14 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	public void vehicleCollisionRightBound(Vehicle vehicle) {
 		if (map.frog.getPlayerPosX() - vehicle.getVehiclePosX() < 32 && map.frog.getPlayerPosX() - vehicle.getVehiclePosX() > -32 &&
 			vehicle.getVehiclePosY() == map.frog.getPlayerPosY()) {
-			//System.exit(0); //Will close program on collision.
+			System.exit(0); //Will close program on collision.
 			}
 		}
 	
 	public void vehicleCollisionLeftBound (Vehicle vehicle) {
 		if (map.frog.getPlayerPosX() - vehicle.getVehiclePosX() > -32 && map.frog.getPlayerPosX() - vehicle.getVehiclePosX() < 32 &&
 			vehicle.getVehiclePosY() == map.frog.getPlayerPosY()){
-			//System.exit(0); //Will close program on collision.
+			System.exit(0); //Will close program on collision.
 		}
 	}
 	
