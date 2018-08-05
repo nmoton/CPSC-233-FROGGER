@@ -1,6 +1,7 @@
 package frogger;
 
 import java.awt.Graphics;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -13,6 +14,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
 	private Timer timer;
 	private int delay = 10;
+	private int gameMode = -1;
 	
 	
 /**
@@ -20,18 +22,21 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 * CHANGE THESE VALUES BELOW TO ENABLE/DISABLE COLLISIONS, WATER DETECTION, AND END-ZONES:
 * 
 */
-	private static boolean TOGGLE_COLLISION = false;
-	private static boolean TOGGLE_WATER = false;
-	private static boolean TOGGLE_ENDZONE = false;
+	private static boolean TOGGLE_COLLISION = true;
+	private static boolean TOGGLE_WATER = true;
+	private static boolean TOGGLE_ENDZONE = true;
+	private static boolean TOGGLE_FROGBOUNDARY = true;
 	
 	private Map map = new Map();
+	private Map map2 = new Map();
+	private Map map3 = new Map();
 	
 	public Gameplay(int contentWidth, int contentHeight) {
+		map.graphicsEngine.getGameMode(this.gameMode);
 		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
 		timer = new Timer(delay, this);
-		timer.start();
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -40,12 +45,46 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		
+		switch(this.gameMode) {
+			case -1: //Main Menu
+				map.graphicsEngine.getGameMode(-1);
+				break;
+			case 0: //Point Table
+				map.graphicsEngine.getGameMode(0);
+				break;
+			case 1: //First Level
+				map.graphicsEngine.getGameMode(1);
+				break;
+			case 2: //Second Level
+				map = map2;
+				map.graphicsEngine.getGameMode(2);
+				break;
+			case 3: //Third Level
+				map = map3;
+				map.graphicsEngine.getGameMode(3);
+				break;
+			case 4: //Game End - Win
+				map.graphicsEngine.getGameMode(4);
+				break;
+			case 5: //Game End - Lose
+				map.graphicsEngine.getGameMode(5);
+				break;
+			case 6: //Show score board
+				map.graphicsEngine.getGameMode(6);
+				break;
+		}
+		
 		//Checks to see if user entered the end zone:
 		if (TOGGLE_ENDZONE) {
 			checkEndZone(map.getEndZoneXBoundary1(), map.getEndZoneYBoundary1(), map.getEndZoneXBoundary2(),
 					map.getEndZoneYBoundary2(), map.frog.getPlayerPosX(), map.frog.getPlayerPosY());
 		}
-		frogInBounds();
+		
+		if (TOGGLE_FROGBOUNDARY) {
+			checkFrogInBounds();
+		}
+		
 		//Checks logs, vehicles, and trucks for collisions:
 		checkLogs(map.logArray);
 		checkVehicles(map.vehicleArray);
@@ -55,9 +94,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 		repaint();
 	}
 	
-	public void frogInBounds() {
-	if (map.frog.getPlayerPosX() < 0 || map.frog.getPlayerPosX() + 31 > 640) {
-			System.exit(0);
+	public void checkFrogInBounds() {
+	if (map.frog.getPlayerPosX() < 0 || map.frog.getPlayerPosX() + 32 > 640) {
+			this.gameMode = 4;
 		}
 	}
 
@@ -193,14 +232,18 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	
 	public void checkWater(int xBoundary1, double yBoundary1, int xBoundary2, double yBoundary2, double userPosX, double userPosY) {
 		if (userPosX >= xBoundary1 && userPosX <= xBoundary2 && userPosY >= yBoundary1 && userPosY <= yBoundary2) {
-			System.exit(0);
+			this.gameMode = 4;
 		}
 	}
 	
 	public void checkEndZone(int xBoundary1, int yBoundary1, int xBoundary2, int yBoundary2, double userPosX, double userPosY) {
 		if (userPosX >= xBoundary1 && userPosX <= xBoundary2 && userPosY >= yBoundary1 && userPosY <= yBoundary2) {
-			System.exit(0);
+			this.gameMode++;
 		}
+	}
+	
+	public int getGameMode() {
+		return this.gameMode;
 	}
 	
 
@@ -210,6 +253,38 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	}
 
 	public void keyPressed(KeyEvent e) {
+		
+		if (this.gameMode < 1 || this.gameMode > 3) {
+			if (gameMode == -1) {
+				this.gameMode++;
+				map.graphicsEngine.getGameMode(this.gameMode);
+				repaint();
+			}
+			
+			else if (this.gameMode == 0) {
+				timer.start();
+				this.gameMode++;
+				map.graphicsEngine.getGameMode(this.gameMode);
+			}
+
+			else if (this.gameMode == 4 || this.gameMode == 5){
+				timer.stop();
+				map = new Map();
+				map2 = new Map();
+				map3 = new Map();
+				this.gameMode = 6;
+				map.graphicsEngine.getGameMode(this.gameMode);
+				repaint();
+			}
+			
+			else if (this.gameMode == 6) {
+				this.gameMode = -1;
+				map.graphicsEngine.getGameMode(this.gameMode);
+				repaint();
+			}
+		}
+		
+		else {
 		if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
 			if (map.frog.getPlayerPosY() <= 0) {
 				 map.frog.setPosY(0);
@@ -219,7 +294,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			}
 		}
 			
-		if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
+		else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
 			if (map.frog.getPlayerPosY() >= 448) {
 				map.frog.setPosY(448);
 			}
@@ -228,7 +303,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			}
 		}
 		
-		if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
+		else if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
 			if (map.frog.getPlayerPosX() >= 608) {
 				map.frog.setPosX(608);
 			}
@@ -238,13 +313,14 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			
 		}
 		
-		if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
+		else if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
 			if (map.frog.getPlayerPosX() <= 0) {
 				map.frog.setPosX(0);
 			}
 			else {
 				map.frog.moveLeft();
 			}
+		}
 		}
 	}
 	
@@ -263,14 +339,14 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	public void vehicleCollisionRightBound(Vehicle vehicle) {
 		if (map.frog.getPlayerPosX() - vehicle.getVehiclePosX() < 32 && map.frog.getPlayerPosX() - vehicle.getVehiclePosX() > -32 &&
 			vehicle.getVehiclePosY() == map.frog.getPlayerPosY()) {
-			System.exit(0); //Will close program on collision.
+			this.gameMode = 4;
 			}
 		}
 	
 	public void vehicleCollisionLeftBound (Vehicle vehicle) {
 		if (map.frog.getPlayerPosX() - vehicle.getVehiclePosX() > -32 && map.frog.getPlayerPosX() - vehicle.getVehiclePosX() < 32 &&
 			vehicle.getVehiclePosY() == map.frog.getPlayerPosY()){
-			System.exit(0); //Will close program on collision.
+			this.gameMode = 4;
 		}
 	}
 	

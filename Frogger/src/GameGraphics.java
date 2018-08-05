@@ -14,11 +14,17 @@ import javax.swing.JPanel;
 
 public class GameGraphics extends JPanel {
 	
+	private int gameMode;
 	private Frog userFrog;
 	private Log[][] logArray;
 	private Turtle[][] turtleArray;
 	private Vehicle[][] vehicleArray;
 	
+	private BufferedImage mainMenu;
+	private BufferedImage pointTable;
+	private BufferedImage gameOver;
+	private BufferedImage youWin;
+	private BufferedImage scoreBoard;
 	private BufferedImage background;
 	private BufferedImage upFrog;
 	private BufferedImage downFrog;
@@ -37,6 +43,11 @@ public class GameGraphics extends JPanel {
 	
 	public GameGraphics(){
 		try {
+			mainMenu = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\mainMenu.png"));
+			pointTable = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\pointTable.png"));
+			gameOver = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\gameOver.png"));
+			youWin = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\youWin.png"));
+			scoreBoard = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\scoreBoard.png"));
 			background = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\background.jpg"));
 			upFrog = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\upFrog.png"));
 			downFrog = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\downFrog.png"));
@@ -62,6 +73,29 @@ public class GameGraphics extends JPanel {
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		
+		if (gameMode == -1) {
+			g.drawImage(mainMenu, 0, 0, null);
+		}
+		
+		else if (gameMode == 0) {
+			g.drawImage(pointTable, 0, 0, null);
+		}
+		
+		else if (gameMode == 4) {
+			g.drawImage(background, 0, 0, null);
+			g.drawImage(gameOver, 0, 0, null);
+		}
+		
+		else if (gameMode == 5) {
+			g.drawImage(background, 0, 0, null);
+			g.drawImage(youWin, 0, 0, null);
+		}
+		
+		else if (gameMode == 6) {
+			g.drawImage(scoreBoard, 0, 0, null);
+		}
+				
+		else if (gameMode >= 1 && gameMode <= 3) {
 		//Drawing background:
 		g.drawImage(background, 0, 0, null);
 		
@@ -183,6 +217,7 @@ public class GameGraphics extends JPanel {
 		else {
 			g2.drawImage(rightFrog, frogPosXY, null);
 		}
+		}
 	}
 
 	public void getUserFrog(Frog mapFrog) {
@@ -199,5 +234,9 @@ public class GameGraphics extends JPanel {
 	
 	public void getMapVehicles(Vehicle[][] mapVehicleArray) {
 		this.vehicleArray = mapVehicleArray;
+	}
+	
+	public void getGameMode(int gameMode) {
+		this.gameMode = gameMode;
 	}
 }
