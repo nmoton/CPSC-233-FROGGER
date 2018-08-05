@@ -20,7 +20,10 @@ public class GameGraphics extends JPanel {
 	private Vehicle[][] vehicleArray;
 	
 	private BufferedImage background;
-	private BufferedImage frog;
+	private BufferedImage upFrog;
+	private BufferedImage downFrog;
+	private BufferedImage leftFrog;
+	private BufferedImage rightFrog;
 	private BufferedImage log3L;
 	private BufferedImage log5L;
 	private BufferedImage log7L;
@@ -35,7 +38,10 @@ public class GameGraphics extends JPanel {
 	public GameGraphics(){
 		try {
 			background = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\background.jpg"));
-			frog = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\frog.png"));
+			upFrog = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\upFrog.png"));
+			downFrog = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\downFrog.png"));
+			leftFrog = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\leftFrog.png"));
+			rightFrog = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\rightFrog.png"));
 			log3L = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\log3L.png"));
 			log5L = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\log5L.png"));
 			log7L = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\log7L.png"));
@@ -162,7 +168,21 @@ public class GameGraphics extends JPanel {
 		//Drawing Frog:
 		AffineTransform frogPosXY = new AffineTransform();
 		frogPosXY.translate(userFrog.getPlayerPosX(), userFrog.getPlayerPosY());
-		g2.drawImage(frog, frogPosXY, null);
+		if (userFrog.getLastFacing() == 'U') {
+			g2.drawImage(upFrog, frogPosXY, null);
+		}
+		
+		else if (userFrog.getLastFacing() == 'D') {
+			g2.drawImage(downFrog, frogPosXY, null);
+		}
+		
+		else if (userFrog.getLastFacing() == 'L') {
+			g2.drawImage(leftFrog, frogPosXY, null);
+		}
+		
+		else {
+			g2.drawImage(rightFrog, frogPosXY, null);
+		}
 	}
 
 	public void getUserFrog(Frog mapFrog) {
