@@ -25,6 +25,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	private static boolean TOGGLE_ENDZONE = false;
 	
 	private Map map = new Map();
+	private Score score = new Score(map.frog.getPlayerPosY());
 	
 	public Gameplay(int contentWidth, int contentHeight) {
 		addKeyListener(this);
@@ -216,6 +217,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			}
 			else {
 				map.frog.moveUp();
+				score.updateScore(map.frog.getPlayerPosY());
 			}
 		}
 			
