@@ -46,7 +46,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			checkEndZone(map.getEndZoneXBoundary1(), map.getEndZoneYBoundary1(), map.getEndZoneXBoundary2(),
 					map.getEndZoneYBoundary2(), map.frog.getPlayerPosX(), map.frog.getPlayerPosY());
 		}
-		
+		frogInBounds();
 		//Checks logs, vehicles, and trucks for collisions:
 		checkLogs(map.logArray);
 		checkVehicles(map.vehicleArray);
@@ -55,6 +55,13 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 		//Forces the graphics engine to update painted components:
 		repaint();
 	}
+	
+	public void frogInBounds() {
+	if (map.frog.getPlayerPosX() < 0 || map.frog.getPlayerPosX() + 31 > 640) {
+			System.exit(0);
+		}
+	}
+
 	
 	public void checkLogs(Log[][] logArray) {
 		for (int i = 0; i < logArray.length; i++) {
