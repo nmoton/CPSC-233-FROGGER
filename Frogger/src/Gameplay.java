@@ -45,8 +45,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	private File newMap;
 	
 	private Map map = new Map();
-	private Map map2 = new Map();
-	private Map map3 = new Map();
+	priavte LevelOne map1 = new LevelOne();
+	private LevelTwo map2 = new LevelTwo();
+	private LevelThree map3 = new LevelThree();
 	
 	public Gameplay() {
 		try {
@@ -84,6 +85,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 				map.graphicsEngine.getGameMode(0);
 				break;
 			case 1: //First Level
+				map = map1;
 				map.graphicsEngine.getGameMode(1);
 				break;
 			case 2: //Second Level
@@ -329,9 +331,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			}
 
 			else if (this.gameMode == 4 || this.gameMode == 5){
-				map = new Map();
-				map2 = new Map();
-				map3 = new Map();
+				map1 = new LevelOne();
+				map2 = new LevelTwo();
+				map3 = new LevelThree();
 				timer.stop();
 				this.gameMode = 6;
 				map.graphicsEngine.getGameMode(this.gameMode);
