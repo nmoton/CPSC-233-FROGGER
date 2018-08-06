@@ -23,9 +23,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 * 
 */
 	private static boolean TOGGLE_COLLISION = true;
-	private static boolean TOGGLE_WATER = true;
-	private static boolean TOGGLE_ENDZONE = true;
-	private static boolean TOGGLE_FROGBOUNDARY = true;
+	private static boolean TOGGLE_WATER = false;
+	private static boolean TOGGLE_ENDZONE = false;
+	private static boolean TOGGLE_FROGBOUNDARY = false;
 	
 	private Map map = new Map();
 	private Map map2 = new Map();
@@ -337,14 +337,14 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	}
 
 	public void vehicleCollisionRightBound(Vehicle vehicle) {
-		if (map.frog.getPlayerPosX() - vehicle.getVehiclePosX() < 32 && map.frog.getPlayerPosX() - vehicle.getVehiclePosX() > -32 &&
+		if (map.frog.getPlayerPosX() - vehicle.getVehiclePosX() < 32 && map.frog.getPlayerPosX() - vehicle.getVehiclePosX() > -20 &&
 			vehicle.getVehiclePosY() == map.frog.getPlayerPosY()) {
 			this.gameMode = 4;
 			}
 		}
 	
 	public void vehicleCollisionLeftBound (Vehicle vehicle) {
-		if (map.frog.getPlayerPosX() - vehicle.getVehiclePosX() > -32 && map.frog.getPlayerPosX() - vehicle.getVehiclePosX() < 32 &&
+		if (map.frog.getPlayerPosX() - vehicle.getVehiclePosX() > -32 && map.frog.getPlayerPosX() - vehicle.getVehiclePosX() < 20 &&
 			vehicle.getVehiclePosY() == map.frog.getPlayerPosY()){
 			this.gameMode = 4;
 		}
