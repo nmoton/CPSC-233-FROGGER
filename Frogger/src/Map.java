@@ -167,7 +167,7 @@ public class Map{
 	private Vehicle[][] level2VehicleArray = {
 	};
 	//Empty Array as Level 2 has no Turtles.
-	public Turtle[][] level2TurtleArray = {	
+	private Turtle[][] level2TurtleArray = {	
 	};
 	
 	/**
@@ -205,7 +205,7 @@ public class Map{
 		{new Vehicle (640.0, 288.0, 0.75, 2, false), new Vehicle (480, 288.0, 0.75, 2, false), new Vehicle (320, 288.0, 0.75, 2, false),
 			new Vehicle (160, 288.0, 0.75, 2, false)}
 	};
-	public Turtle[][] level3TurtleArray = {
+	private Turtle[][] level3TurtleArray = {
 		//Left-bound turtle @ y = 128.0, traveling at speed of 0.5, various gaps, and length of 2:
 		{new Turtle (640.0, 128.0, 0.5, 2), new Turtle (512.0, 128.0, 0.5, 2), new Turtle (384.0, 128.0, 0.5, 2),
 			new Turtle (256.0, 128.0, 0.5, 2), new Turtle (128.0, 128.0, 0.5, 2)},
