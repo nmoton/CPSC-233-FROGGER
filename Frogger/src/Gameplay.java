@@ -338,15 +338,24 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
 	public void vehicleCollisionRightBound(Vehicle vehicle) {
 		if (map.frog.getPlayerPosX() - vehicle.getVehiclePosX() < 32 && map.frog.getPlayerPosX() - vehicle.getVehiclePosX() > -20 &&
-			vehicle.getVehiclePosY() == map.frog.getPlayerPosY()) {
-			this.gameMode = 4;
-			}
+					vehicle.getVehiclePosY() == map.frog.getPlayerPosY()) {
+				this.gameMode = 4;
+				}
 		}
 	
 	public void vehicleCollisionLeftBound (Vehicle vehicle) {
-		if (map.frog.getPlayerPosX() - vehicle.getVehiclePosX() > -32 && map.frog.getPlayerPosX() - vehicle.getVehiclePosX() < 20 &&
-			vehicle.getVehiclePosY() == map.frog.getPlayerPosY()){
-			this.gameMode = 4;
+		if (vehicle.getVehicleLength() == 2) {
+			if (map.frog.getPlayerPosX() - vehicle.getVehiclePosX() > -32 && map.frog.getPlayerPosX() - vehicle.getVehiclePosX() < 48 &&
+						vehicle.getVehiclePosY() == map.frog.getPlayerPosY()) {
+					this.gameMode = 4;
+					}
+		}
+		
+		else {
+			if (map.frog.getPlayerPosX() - vehicle.getVehiclePosX() > -32 && map.frog.getPlayerPosX() - vehicle.getVehiclePosX() < 20 &&
+					vehicle.getVehiclePosY() == map.frog.getPlayerPosY()){
+				this.gameMode = 4;
+			}
 		}
 	}
 	

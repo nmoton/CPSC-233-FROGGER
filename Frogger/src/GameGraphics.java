@@ -96,127 +96,133 @@ public class GameGraphics extends JPanel {
 		}
 				
 		else if (gameMode >= 1 && gameMode <= 3) {
-		//Drawing background:
-		g.drawImage(background, 0, 0, null);
+			//Drawing background:
+			g.drawImage(background, 0, 0, null);
 		
-		//Drawing Logs:
-		for (int i = 0; i < logArray.length; i++) {
-			for (int j = 0; j < logArray[i].length; j++) {
-				if (logArray[i][j].isLogRightBound() == true) {
-					logArray[i][j].moveLogRightX();
+			//Drawing Logs:
+			for (int i = 0; i < logArray.length; i++) {
+				for (int j = 0; j < logArray[i].length; j++) {
+					if (logArray[i][j].isLogRightBound() == true) {
+						logArray[i][j].moveLogRightX();
 					
-					AffineTransform logPosXY = new AffineTransform();
-					logPosXY.translate(logArray[i][j].getLogPosX(), logArray[i][j].getLogPosY());
+						AffineTransform logPosXY = new AffineTransform();
+						logPosXY.translate(logArray[i][j].getLogPosX(), logArray[i][j].getLogPosY());
 					
-					if (logArray[i][j].getLogLength() == 3) {
-						g2.drawImage(log3L, logPosXY, null);
-					}
-					else if (logArray[i][j].getLogLength() == 5) {
-						g2.drawImage(log5L, logPosXY, null);
-					}
-					else {
-						g2.drawImage(log7L, logPosXY, null);
-					}
-					
-				}
-					
-				else if (logArray[i][j].isLogRightBound() == false) {
-					logArray[i][j].moveLogLeftX();
-					
-					AffineTransform logPosXY = new AffineTransform();
-					logPosXY.translate(logArray[i][j].getLogPosX(), logArray[i][j].getLogPosY());
-					
-					if (logArray[i][j].getLogLength() == 3) {
-						g2.drawImage(log3L, logPosXY, null);
-					}
-					else if (logArray[i][j].getLogLength() == 5) {
-						g2.drawImage(log5L, logPosXY, null);
-					}
-					else {
-						g2.drawImage(log7L, logPosXY, null);
-					}
-					
-				}
-			}
-		}
-		//Drawing Vehicles:
-		g2.setColor(Color.red);
-		for (int i = 0; i < vehicleArray.length; i++) {
-			for (int j = 0; j < vehicleArray[i].length; j++) {
-				if (vehicleArray[i][j].isVehicleRightBound() == true) {
-					vehicleArray[i][j].moveVehicleRightX();
-					AffineTransform vehiclePosXY = new AffineTransform();
-					vehiclePosXY.translate(vehicleArray[i][j].getVehiclePosX(), vehicleArray[i][j].getVehiclePosY());
-					
-					if (vehicleArray[i][j].getVehicleAcceleration() >= 0.75) {
-						g2.drawImage(racecar, vehiclePosXY, null);
-					}
-					else {
-						g2.drawImage(bulldozer, vehiclePosXY, null);
+						if (logArray[i][j].getLogLength() == 3) {
+							g2.drawImage(log3L, logPosXY, null);
 						}
-							
-					}
-
-					
-				if (vehicleArray[i][j].isVehicleRightBound() == false) {
-					vehicleArray[i][j].moveVehicleLeftX();
-					AffineTransform vehiclePosXY = new AffineTransform();
-					vehiclePosXY.translate(vehicleArray[i][j].getVehiclePosX(), vehicleArray[i][j].getVehiclePosY());
-					
-					if (vehicleArray[i][j].getVehicleLength() == 2) {
-						g2.drawImage(truck, vehiclePosXY, null);
-					}
-					else if (vehicleArray[i][j].getVehicleLength() == 1) {
-						if (vehicleArray[i][j].getVehicleAcceleration() <= 0.65) {
-							g2.drawImage(pinkCar, vehiclePosXY, null);
+						
+						else if (logArray[i][j].getLogLength() == 5) {
+							g2.drawImage(log5L, logPosXY, null);
 						}
 						
 						else {
-							g2.drawImage(yellowCar, vehiclePosXY, null);
+							g2.drawImage(log7L, logPosXY, null);
 						}
+					
+					}
+					
+					else if (logArray[i][j].isLogRightBound() == false) {
+						logArray[i][j].moveLogLeftX();
+					
+						AffineTransform logPosXY = new AffineTransform();
+						logPosXY.translate(logArray[i][j].getLogPosX(), logArray[i][j].getLogPosY());
+					
+						if (logArray[i][j].getLogLength() == 3) {
+							g2.drawImage(log3L, logPosXY, null);
+						}
+						
+						else if (logArray[i][j].getLogLength() == 5) {
+							g2.drawImage(log5L, logPosXY, null);
 							
+						}
+						
+						else {
+						g2.drawImage(log7L, logPosXY, null);
+						}
+					
 					}
 				}
 			}
-		}
-		
-		//Drawing Turtles:
-		g2.setColor(Color.yellow);
-		for (int i = 0; i < turtleArray.length; i++) {
-			for (int j = 0; j < turtleArray[i].length; j++) {
-				turtleArray[i][j].moveTurtleX();
-				
-				AffineTransform turtlePosXY = new AffineTransform();
-				turtlePosXY.translate(turtleArray[i][j].getTurtlePosX(), turtleArray[i][j].getTurtlePosY());
-				
-				if (turtleArray[i][j].getTurtleLength() == 2) {
-					g2.drawImage(turtle2L, turtlePosXY, null);
-				}
-				
-				else {
-					g2.drawImage(turtle3L, turtlePosXY, null);
+			
+			//Drawing Vehicles:
+			g2.setColor(Color.red);
+			for (int i = 0; i < vehicleArray.length; i++) {
+				for (int j = 0; j < vehicleArray[i].length; j++) {
+					if (vehicleArray[i][j].isVehicleRightBound() == true) {
+						vehicleArray[i][j].moveVehicleRightX();
+						AffineTransform vehiclePosXY = new AffineTransform();
+						vehiclePosXY.translate(vehicleArray[i][j].getVehiclePosX(), vehicleArray[i][j].getVehiclePosY());
+					
+						if (vehicleArray[i][j].getVehicleAcceleration() >= 0.75) {
+							g2.drawImage(racecar, vehiclePosXY, null);
+						}
+						
+						else {
+							g2.drawImage(bulldozer, vehiclePosXY, null);
+						}
+					}
+
+					
+					if (vehicleArray[i][j].isVehicleRightBound() == false) {
+						vehicleArray[i][j].moveVehicleLeftX();
+						AffineTransform vehiclePosXY = new AffineTransform();
+						vehiclePosXY.translate(vehicleArray[i][j].getVehiclePosX(), vehicleArray[i][j].getVehiclePosY());
+					
+						if (vehicleArray[i][j].getVehicleLength() == 2) {
+							g2.drawImage(truck, vehiclePosXY, null);
+						}
+						
+						else if (vehicleArray[i][j].getVehicleLength() == 1) {
+							if (vehicleArray[i][j].getVehicleAcceleration() <= 0.65) {
+								g2.drawImage(pinkCar, vehiclePosXY, null);
+							}
+						
+							else {
+								g2.drawImage(yellowCar, vehiclePosXY, null);
+							}
+							
+						}
+					}
 				}
 			}
-		}
 		
-		//Drawing Frog:
-		AffineTransform frogPosXY = new AffineTransform();
-		frogPosXY.translate(userFrog.getPlayerPosX(), userFrog.getPlayerPosY());
-		if (userFrog.getLastFacing() == 'U') {
-			g2.drawImage(upFrog, frogPosXY, null);
-		}
+			//Drawing Turtles:
+			g2.setColor(Color.yellow);
+			for (int i = 0; i < turtleArray.length; i++) {
+				for (int j = 0; j < turtleArray[i].length; j++) {
+					turtleArray[i][j].moveTurtleX();
+					AffineTransform turtlePosXY = new AffineTransform();
+					turtlePosXY.translate(turtleArray[i][j].getTurtlePosX(), turtleArray[i][j].getTurtlePosY());
+				
+					if (turtleArray[i][j].getTurtleLength() == 2) {
+						g2.drawImage(turtle2L, turtlePosXY, null);
+					}
+				
+					else {
+						g2.drawImage(turtle3L, turtlePosXY, null);
+					}
+				}
+			}
+			
+			//Drawing Frog:
+			AffineTransform frogPosXY = new AffineTransform();
+			frogPosXY.translate(userFrog.getPlayerPosX(), userFrog.getPlayerPosY());
+			if (userFrog.getLastFacing() == 'U') {
+				g2.drawImage(upFrog, frogPosXY, null);
+			}
 		
-		else if (userFrog.getLastFacing() == 'D') {
-			g2.drawImage(downFrog, frogPosXY, null);
-		}
+			else if (userFrog.getLastFacing() == 'D') {
+				g2.drawImage(downFrog, frogPosXY, null);
+			}
 		
-		else if (userFrog.getLastFacing() == 'L') {
-			g2.drawImage(leftFrog, frogPosXY, null);
-		}
+			else if (userFrog.getLastFacing() == 'L') {
+				g2.drawImage(leftFrog, frogPosXY, null);
+			}
 		
-		else {
-			g2.drawImage(rightFrog, frogPosXY, null);
-		}
+			else {
+				g2.drawImage(rightFrog, frogPosXY, null);
+			}
 		}
 	}
 
