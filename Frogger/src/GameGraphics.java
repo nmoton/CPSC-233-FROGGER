@@ -83,12 +83,12 @@ public class GameGraphics extends JPanel {
 		
 		else if (gameMode == 4) {
 			g.drawImage(background, 0, 0, null);
-			g.drawImage(gameOver, 0, 0, null);
+			g.drawImage(youWin, 0, 0, null);
 		}
 		
 		else if (gameMode == 5) {
 			g.drawImage(background, 0, 0, null);
-			g.drawImage(youWin, 0, 0, null);
+			g.drawImage(gameOver, 0, 0, null);
 		}
 		
 		else if (gameMode == 6) {

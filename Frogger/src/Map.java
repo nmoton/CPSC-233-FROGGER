@@ -32,8 +32,7 @@ public class Map{
 	//Log array:
 	public Log[][] logArray = {
 			//Right-bound log @ y = 96.0, traveling at speed of 1.0, gaps of 224.0, and length of 5:
-			{new Log (0.0, 96.0, 1.5, 5, true), new Log (224.0, 96.0, 1.5, 5, true), new Log (448.0, 96.0, 1.5, 5, true),
-				new Log (672.0, 96.0, 1.5, 7, true)}, 
+			{new Log (0.0, 96.0, 1.5, 5, true), new Log (224.0, 96.0, 1.5, 5, true), new Log (448.0, 96.0, 1.5, 5, true)}, 
 			
 			//Right-bound log @ y = 160, traveling at speed of 1.25, gaps of 228.0, and various lengths of 7:
 			{new Log (0.0, 160, 1.25, 7, true), new Log (416.0, 160.0, 1.25, 7, true)},

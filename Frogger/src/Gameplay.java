@@ -22,8 +22,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	* CHANGE THESE VALUES BELOW TO ENABLE/DISABLE COLLISIONS, WATER DETECTION, AND END-ZONES:
 	* 
 	*/
-	private static boolean TOGGLE_COLLISION = true;
-	private static boolean TOGGLE_WATER = true;
+	private static boolean TOGGLE_COLLISION = false;
+	private static boolean TOGGLE_WATER = false;
 	private static boolean TOGGLE_ENDZONE = true;
 	private static boolean TOGGLE_FROGBOUNDARY = true;
 	
@@ -42,6 +42,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	private File startGame;
 	private File carCollision;
 	private File fallWater;
+	private File newMap;
 	
 	private Map map = new Map();
 	private Map map2 = new Map();
@@ -53,6 +54,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			startGame = new File("C:\\Users\\Nate\\Desktop\\Frogger Sounds\\sound-frogger-coin-in.wav\\");
 			carCollision = new File("C:\\Users\\Nate\\Desktop\\Frogger Sounds\\sound-frogger-plunk.wav\\");
 			fallWater = new File("C:\\Users\\Nate\\Desktop\\Frogger Sounds\\sound-frogger-squash.wav\\");
+			newMap = new File("C:\\Users\\Nate\\Desktop\\Frogger Sounds\\sound-frogger-extra.wav\\");
 		}
 		
 		catch (Exception e){
@@ -92,10 +94,10 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 				map = map3;
 				map.graphicsEngine.getGameMode(3);
 				break;
-			case 4: //Game End - Win
+			case 4: //Game End - Lose
 				map.graphicsEngine.getGameMode(4);
 				break;
-			case 5: //Game End - Lose
+			case 5: //Game End - Win
 				map.graphicsEngine.getGameMode(5);
 				break;
 			case 6: //Show score board
@@ -126,7 +128,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	if (map.frog.getPlayerPosX() < 0 || map.frog.getPlayerPosX() + 32 > 640) {
 			timer.stop();
 			playSound(fallWater);
-			this.gameMode = 4;
+			this.gameMode = 5;
 			map.graphicsEngine.getGameMode(this.gameMode);
 			repaint();
 		}
@@ -276,7 +278,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	public void checkWater(int xBoundary1, double yBoundary1, int xBoundary2, double yBoundary2, double userPosX, double userPosY) {
 		if (userPosX >= xBoundary1 && userPosX <= xBoundary2 && userPosY >= yBoundary1 && userPosY <= yBoundary2) {
 			playSound(fallWater);
-			this.gameMode = 4;
+			this.gameMode = 5;
 			timer.stop();
 			map.graphicsEngine.getGameMode(this.gameMode);
 			repaint();
@@ -286,6 +288,16 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	public void checkEndZone(int xBoundary1, int yBoundary1, int xBoundary2, int yBoundary2, double userPosX, double userPosY) {
 		if (userPosX >= xBoundary1 && userPosX <= xBoundary2 && userPosY >= yBoundary1 && userPosY <= yBoundary2) {
 			this.gameMode++;
+			
+			if (this.gameMode == 4) {
+				timer.stop();
+				map.graphicsEngine.getGameMode(this.gameMode);
+				repaint();
+			}
+			
+			else {
+				playSound(newMap);
+			}
 		}
 	}
 	
@@ -313,12 +325,14 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 				timer.start();
 				this.gameMode++;
 				map.graphicsEngine.getGameMode(this.gameMode);
+				playSound(newMap);
 			}
 
 			else if (this.gameMode == 4 || this.gameMode == 5){
 				map = new Map();
 				map2 = new Map();
 				map3 = new Map();
+				timer.stop();
 				this.gameMode = 6;
 				map.graphicsEngine.getGameMode(this.gameMode);
 				repaint();
@@ -391,7 +405,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 		if (map.frog.getPlayerPosX() - vehicle.getVehiclePosX() < 32 && map.frog.getPlayerPosX() - vehicle.getVehiclePosX() > -20 &&
 					vehicle.getVehiclePosY() == map.frog.getPlayerPosY()) {
 				timer.stop();
-				this.gameMode = 4;
+				this.gameMode = 5;
 				playSound(carCollision);
 				map.graphicsEngine.getGameMode(this.gameMode);
 				repaint();
@@ -403,7 +417,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			if (map.frog.getPlayerPosX() - vehicle.getVehiclePosX() > -32 && map.frog.getPlayerPosX() - vehicle.getVehiclePosX() < 48 &&
 						vehicle.getVehiclePosY() == map.frog.getPlayerPosY()) {
 					timer.stop();
-					this.gameMode = 4;
+					this.gameMode = 5;
 					playSound(carCollision);
 					map.graphicsEngine.getGameMode(this.gameMode);
 					repaint();
@@ -414,7 +428,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			if (map.frog.getPlayerPosX() - vehicle.getVehiclePosX() > -32 && map.frog.getPlayerPosX() - vehicle.getVehiclePosX() < 20 &&
 					vehicle.getVehiclePosY() == map.frog.getPlayerPosY()){
 				timer.stop();
-				this.gameMode = 4;
+				this.gameMode = 5;
 				playSound(carCollision);
 				map.graphicsEngine.getGameMode(this.gameMode);
 				repaint();
