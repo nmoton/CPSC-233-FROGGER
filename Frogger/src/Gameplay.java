@@ -44,9 +44,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	private File fallWater;
 	private File newMap;
 	
-	private Map map = new Map();
-	private Map map2 = new Map();
-	private Map map3 = new Map();
+	private Map map = new Map(1);
+	private Map map2 = new Map(2);
+	private Map map3 = new Map(3);
 	
 	public Gameplay() {
 		try {
@@ -329,9 +329,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			}
 
 			else if (this.gameMode == 4 || this.gameMode == 5){
-				map = new Map();
-				map2 = new Map();
-				map3 = new Map();
+				map = new Map(1);
+				map2 = new Map(2);
+				map3 = new Map(3);
 				timer.stop();
 				this.gameMode = 6;
 				map.graphicsEngine.getGameMode(this.gameMode);
