@@ -21,6 +21,13 @@ public class Score implements Serializable {
 		setHighestPosY(posY);
 	}
 	
+	//Only used for JUnit Testing
+	Score(int s, String name){
+		score = s;
+		username = name;
+		setHighestPosY(0);
+	}
+	
 	Score(Score toCopy){
 		this.score = toCopy.score;
 		this.username = toCopy.username;
@@ -58,7 +65,7 @@ public class Score implements Serializable {
 			score += 10;
 			highestPosY = playerPosY;
 		}
-		System.out.println("Score: " + score + " Y: " + playerPosY);	
+		System.out.println("Score: " + score + " Y: " + playerPosY + " highestY: " + highestPosY);	
 	}
 	
 	public void clearLevelScore() {

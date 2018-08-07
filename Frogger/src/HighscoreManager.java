@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -23,17 +22,17 @@ public class HighscoreManager {
 		scoreList = new ArrayList<Score>();
 	}
 	
-	private ArrayList<Score> getScores(){
-		loadScoreFile();
+	public void sortScores(){
 		Collections.sort(scoreList, new Comparator<Score>()
 				{
 					public int compare(Score s1, Score s2) {
 						return Integer.valueOf(s2.getScore()).compareTo(s1.getScore());
 					}
 				});
-		return scoreList;
 	}
 	
+	
+		
 	private void loadScoreFile() {
 		try {
 			input = new ObjectInputStream(new FileInputStream(HIGHSCORE_FILE));
@@ -56,9 +55,9 @@ public class HighscoreManager {
 		}
 	}
 		
-	public void addScore(Score toCopy) {
+	public void saveScore(Score toAdd) {
 		loadScoreFile();
-		scoreList.add(new Score(toCopy));
+		addScoreToList(toAdd);
 		updateScoreFile();
 	}
 	
@@ -81,13 +80,18 @@ public class HighscoreManager {
             }
         }
     }
+    
+    public void addScoreToList(Score toAdd) {
+    	scoreList.add(toAdd);
+    }
 	
 	
     public String getHighscoreString() {
         String highscoreString = "";
         int max = 5;
         
-        getScores();
+        loadScoreFile();
+        sortScores();
      
         int i = 0;
         int x = scoreList.size();
@@ -101,6 +105,12 @@ public class HighscoreManager {
         return highscoreString;
         
     } 
+    
+    //Only used for JUnit Testing
+    public ArrayList<Score> copyList(){
+    	ArrayList<Score> copyList = new ArrayList<Score>(scoreList);
+    	return copyList;
+    }
 	
 	
 }
