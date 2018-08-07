@@ -1,38 +1,76 @@
 package frogger;
 
 import java.awt.Graphics;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import java.io.File;
+
+
 public class Gameplay extends JPanel implements KeyListener, ActionListener {
+	
+	/**
+	* 
+	* CHANGE THESE VALUES BELOW TO ENABLE/DISABLE COLLISIONS, WATER DETECTION, AND END-ZONES:
+	* 
+	*/
+	private static boolean TOGGLE_COLLISION = true;
+	private static boolean TOGGLE_WATER = true;
+	private static boolean TOGGLE_ENDZONE = true;
+	private static boolean TOGGLE_FROGBOUNDARY = true;
+	
+	/**
+	 * 
+	 * LEAVE THESE SETTINGS DEFAULT:
+	 * 
+	 */
 
 	private Timer timer;
 	private int delay = 10;
 	
+	private int gameMode = -1;
 	
-/**
-* 
-* CHANGE THESE VALUES BELOW TO ENABLE/DISABLE COLLISIONS, WATER DETECTION, AND END-ZONES:
-* 
-*/
-	private static boolean TOGGLE_COLLISION = false;
-	private static boolean TOGGLE_WATER = false;
-	private static boolean TOGGLE_ENDZONE = false;
+	private File frogHop;
+	private File startGame;
+	private File carCollision;
+	private File fallWater;
+	private File newMap;
 	
 	private Map map = new Map();
-	private Score score = new Score(map.frog.getPlayerPosY());
 	
-	public Gameplay(int contentWidth, int contentHeight) {
+	public Score score;
+	public HighscoreManager hm = new HighscoreManager();
+
+	private LevelOne map1 = new LevelOne();
+	private LevelTwo map2 = new LevelTwo();
+	private LevelThree map3 = new LevelThree();
+	
+	public Gameplay() {
+		try {
+			frogHop = new File("C:\\Users\\Nate\\Desktop\\Frogger Sounds\\sound-frogger-hop.wav\\");
+			startGame = new File("C:\\Users\\Nate\\Desktop\\Frogger Sounds\\sound-frogger-coin-in.wav\\");
+			carCollision = new File("C:\\Users\\Nate\\Desktop\\Frogger Sounds\\sound-frogger-plunk.wav\\");
+			fallWater = new File("C:\\Users\\Nate\\Desktop\\Frogger Sounds\\sound-frogger-squash.wav\\");
+			newMap = new File("C:\\Users\\Nate\\Desktop\\Frogger Sounds\\sound-frogger-extra.wav\\");
+		}
+		
+		catch (Exception e){
+			
+		}
+		
+		map.graphicsEngine.getGameMode(this.gameMode);
 		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
 		timer = new Timer(delay, this);
-		timer.start();
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -41,12 +79,48 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		
+		switch(this.gameMode) {
+			case -1: //Main Menu
+				map.graphicsEngine.getGameMode(-1);
+				break;
+			case 0: //Point Table
+				playSound(startGame);
+				map.graphicsEngine.getGameMode(0);
+				break;
+			case 1: //First Level
+				map = map1;
+				map.graphicsEngine.getGameMode(1);
+				break;
+			case 2: //Second Level
+				map = map2;
+				map.graphicsEngine.getGameMode(2);
+				break;
+			case 3: //Third Level
+				map = map3;
+				map.graphicsEngine.getGameMode(3);
+				break;
+			case 4: //Game End - Lose
+				map.graphicsEngine.getGameMode(4);
+				break;
+			case 5: //Game End - Win
+				map.graphicsEngine.getGameMode(5);
+				break;
+			case 6: //Show score board
+				map.graphicsEngine.getGameMode(6);
+				break;
+		}
+		
 		//Checks to see if user entered the end zone:
 		if (TOGGLE_ENDZONE) {
 			checkEndZone(map.getEndZoneXBoundary1(), map.getEndZoneYBoundary1(), map.getEndZoneXBoundary2(),
 					map.getEndZoneYBoundary2(), map.frog.getPlayerPosX(), map.frog.getPlayerPosY());
 		}
-		frogInBounds();
+		
+		if (TOGGLE_FROGBOUNDARY) {
+			checkFrogInBounds();
+		}
+		
 		//Checks logs, vehicles, and trucks for collisions:
 		checkLogs(map.logArray);
 		checkVehicles(map.vehicleArray);
@@ -56,9 +130,24 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 		repaint();
 	}
 	
-	public void frogInBounds() {
-	if (map.frog.getPlayerPosX() < 0 || map.frog.getPlayerPosX() + 31 > 640) {
-			System.exit(0);
+	public void checkFrogInBounds(){
+	if (map.frog.getPlayerPosX() < 0 || map.frog.getPlayerPosX() + 32 > 640) {
+			timer.stop();
+			playSound(fallWater);
+			this.gameMode = 5;
+			map.graphicsEngine.getGameMode(this.gameMode);
+			repaint();
+		}
+	}
+	
+	public void playSound(File Sound) {
+		try {
+			Clip soundEffect = AudioSystem.getClip();
+			soundEffect.open(AudioSystem.getAudioInputStream(Sound));
+			soundEffect.start();
+		}
+		catch (Exception e) {
+			
 		}
 	}
 
@@ -194,14 +283,34 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	
 	public void checkWater(int xBoundary1, double yBoundary1, int xBoundary2, double yBoundary2, double userPosX, double userPosY) {
 		if (userPosX >= xBoundary1 && userPosX <= xBoundary2 && userPosY >= yBoundary1 && userPosY <= yBoundary2) {
-			System.exit(0);
+			playSound(fallWater);
+			this.gameMode = 5;
+			timer.stop();
+			map.graphicsEngine.getGameMode(this.gameMode);
+			repaint();
 		}
 	}
 	
 	public void checkEndZone(int xBoundary1, int yBoundary1, int xBoundary2, int yBoundary2, double userPosX, double userPosY) {
 		if (userPosX >= xBoundary1 && userPosX <= xBoundary2 && userPosY >= yBoundary1 && userPosY <= yBoundary2) {
-			System.exit(0);
+			this.gameMode++;
+			score.clearLevelScore();
+			
+			
+			if (this.gameMode == 4) {
+				timer.stop();
+				map.graphicsEngine.getGameMode(this.gameMode);
+				repaint();
+			}
+			
+			else {
+				playSound(newMap);
+			}
 		}
+	}
+	
+	public int getGameMode() {
+		return this.gameMode;
 	}
 	
 
@@ -211,42 +320,84 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	}
 
 	public void keyPressed(KeyEvent e) {
+		if (this.gameMode < 1 || this.gameMode > 3) {
+			if (gameMode == -1) {
+				System.out.println(hm.getHighscoreString());
+				playSound(startGame);
+				this.gameMode++;
+				score = new Score(480);
+				map.graphicsEngine.getGameMode(this.gameMode);
+				repaint();
+			}
+			
+			else if (this.gameMode == 0) {
+				timer.start();
+				this.gameMode++;
+				map.graphicsEngine.getGameMode(this.gameMode);
+				playSound(newMap);
+			}
+
+			else if (this.gameMode == 4 || this.gameMode == 5){
+				score.setUsername();
+				hm.addScore(score);
+				map1 = new LevelOne();
+				map2 = new LevelTwo();
+				map3 = new LevelThree();
+				timer.stop();
+				this.gameMode = 6;
+				map.graphicsEngine.getGameMode(this.gameMode);
+				repaint();
+			}
+			
+			else if (this.gameMode == 6) {
+				this.gameMode = -1;
+				map.graphicsEngine.getGameMode(this.gameMode);
+				repaint();
+			}
+		}
+		
+		else {
 		if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
 			if (map.frog.getPlayerPosY() <= 0) {
 				 map.frog.setPosY(0);
 			}
 			else {
-				map.frog.moveUp();
+				playSound(frogHop);
 				score.updateScore(map.frog.getPlayerPosY());
+				map.frog.moveUp();
 			}
 		}
 			
-		if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
+		else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
 			if (map.frog.getPlayerPosY() >= 448) {
 				map.frog.setPosY(448);
 			}
 			else {
+				playSound(frogHop);
 				map.frog.moveDown();
 			}
 		}
 		
-		if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
+		else if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
 			if (map.frog.getPlayerPosX() >= 608) {
 				map.frog.setPosX(608);
 			}
 			else {
+				playSound(frogHop);
 				map.frog.moveRight();
 			}
 			
 		}
 		
-		if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
+		else if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
 			if (map.frog.getPlayerPosX() <= 0) {
 				map.frog.setPosX(0);
 			}
 			else {
+				playSound(frogHop);
 				map.frog.moveLeft();
 			}
+		}
 		}
 	}
 	
@@ -263,16 +414,37 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	}
 
 	public void vehicleCollisionRightBound(Vehicle vehicle) {
-		if (map.frog.getPlayerPosX() - vehicle.getVehiclePosX() < 32 && map.frog.getPlayerPosX() - vehicle.getVehiclePosX() > -32 &&
-			vehicle.getVehiclePosY() == map.frog.getPlayerPosY()) {
-			System.exit(0); //Will close program on collision.
-			}
+		if (map.frog.getPlayerPosX() - vehicle.getVehiclePosX() < 32 && map.frog.getPlayerPosX() - vehicle.getVehiclePosX() > -20 &&
+					vehicle.getVehiclePosY() == map.frog.getPlayerPosY()) {
+				timer.stop();
+				this.gameMode = 5;
+				playSound(carCollision);
+				map.graphicsEngine.getGameMode(this.gameMode);
+				repaint();
+				}
 		}
 	
 	public void vehicleCollisionLeftBound (Vehicle vehicle) {
-		if (map.frog.getPlayerPosX() - vehicle.getVehiclePosX() > -32 && map.frog.getPlayerPosX() - vehicle.getVehiclePosX() < 32 &&
-			vehicle.getVehiclePosY() == map.frog.getPlayerPosY()){
-			System.exit(0); //Will close program on collision.
+		if (vehicle.getVehicleLength() == 2) {
+			if (map.frog.getPlayerPosX() - vehicle.getVehiclePosX() > -32 && map.frog.getPlayerPosX() - vehicle.getVehiclePosX() < 48 &&
+						vehicle.getVehiclePosY() == map.frog.getPlayerPosY()) {
+					timer.stop();
+					this.gameMode = 5;
+					playSound(carCollision);
+					map.graphicsEngine.getGameMode(this.gameMode);
+					repaint();
+					}
+		}
+		
+		else {
+			if (map.frog.getPlayerPosX() - vehicle.getVehiclePosX() > -32 && map.frog.getPlayerPosX() - vehicle.getVehiclePosX() < 20 &&
+					vehicle.getVehiclePosY() == map.frog.getPlayerPosY()){
+				timer.stop();
+				this.gameMode = 5;
+				playSound(carCollision);
+				map.graphicsEngine.getGameMode(this.gameMode);
+				repaint();
+			}
 		}
 	}
 	
