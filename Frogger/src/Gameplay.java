@@ -295,6 +295,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 		if (userPosX >= xBoundary1 && userPosX <= xBoundary2 && userPosY >= yBoundary1 && userPosY <= yBoundary2) {
 			this.gameMode++;
 			score.clearLevelScore();
+			score.setHighestPosY(448);
 			
 			
 			if (this.gameMode == 4) {
@@ -325,7 +326,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 				System.out.println(hm.getHighscoreString());
 				playSound(startGame);
 				this.gameMode++;
-				score = new Score(480);
+				score = new Score(448);
 				map.graphicsEngine.getGameMode(this.gameMode);
 				repaint();
 			}
