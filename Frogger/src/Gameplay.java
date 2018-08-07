@@ -22,8 +22,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	* CHANGE THESE VALUES BELOW TO ENABLE/DISABLE COLLISIONS, WATER DETECTION, AND END-ZONES:
 	* 
 	*/
-	private static boolean TOGGLE_COLLISION = false;
-	private static boolean TOGGLE_WATER = false;
+	private static boolean TOGGLE_COLLISION = true;
+	private static boolean TOGGLE_WATER = true;
 	private static boolean TOGGLE_ENDZONE = true;
 	private static boolean TOGGLE_FROGBOUNDARY = true;
 	
@@ -45,7 +45,11 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	private File newMap;
 	
 	private Map map = new Map();
-	priavte LevelOne map1 = new LevelOne();
+	
+	public Score score;
+	public HighscoreManager hm = new HighscoreManager();
+
+	private LevelOne map1 = new LevelOne();
 	private LevelTwo map2 = new LevelTwo();
 	private LevelThree map3 = new LevelThree();
 	
@@ -290,6 +294,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	public void checkEndZone(int xBoundary1, int yBoundary1, int xBoundary2, int yBoundary2, double userPosX, double userPosY) {
 		if (userPosX >= xBoundary1 && userPosX <= xBoundary2 && userPosY >= yBoundary1 && userPosY <= yBoundary2) {
 			this.gameMode++;
+			score.clearLevelScore();
+			score.setHighestPosY(448);
+			
 			
 			if (this.gameMode == 4) {
 				timer.stop();
@@ -314,11 +321,12 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	}
 
 	public void keyPressed(KeyEvent e) {
-		
 		if (this.gameMode < 1 || this.gameMode > 3) {
 			if (gameMode == -1) {
+				System.out.println(hm.getHighscoreString());
 				playSound(startGame);
 				this.gameMode++;
+				score = new Score(448);
 				map.graphicsEngine.getGameMode(this.gameMode);
 				repaint();
 			}
@@ -331,6 +339,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			}
 
 			else if (this.gameMode == 4 || this.gameMode == 5){
+				score.setUsername();
+				hm.addScore(score);
 				map1 = new LevelOne();
 				map2 = new LevelTwo();
 				map3 = new LevelThree();
@@ -354,6 +364,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			}
 			else {
 				playSound(frogHop);
+				score.updateScore(map.frog.getPlayerPosY());
 				map.frog.moveUp();
 			}
 		}
@@ -671,5 +682,3 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 		
 	}
 }
-	
-
