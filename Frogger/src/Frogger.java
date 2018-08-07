@@ -21,7 +21,7 @@ public class Frogger {
 				gameWindow.setLocationRelativeTo(null); //Forces frame to appear in middle of user's screen.
 				gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Terminates entire program upon closing window.
 				
-				Gameplay frogger = new Gameplay(gameWindow.getContentPane().getWidth(), gameWindow.getContentPane().getHeight());
+				Gameplay frogger = new Gameplay();
 				gameWindow.add(frogger);
 			}
 		});
