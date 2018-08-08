@@ -20,6 +20,7 @@ public class Map{
 	//Frog for testing (LEAVE DEFAULT):
 	public Frog frog = new Frog(frogStartingX, frogStartingY);
 	
+	
 	public Vehicle[][] vehicleArray;
 	public Log[][] logArray; 
 	public Turtle[][] turtleArray;

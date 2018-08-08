@@ -5,6 +5,7 @@ public class Frog {
 	private double playerPosX;
 	private double playerPosY;
 	private char lastFacing = 'U';
+
 	
 	public Frog(double setPlayerPosX, double setPlayerPosY) {
 		setPosX(setPlayerPosX);

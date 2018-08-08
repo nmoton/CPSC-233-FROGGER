@@ -43,26 +43,26 @@ public class GameGraphics extends JPanel {
 	
 	public GameGraphics(){
 		try {
-			mainMenu = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\mainMenu.png"));
-			pointTable = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\pointTable.png"));
-			gameOver = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\gameOver.png"));
-			youWin = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\youWin.png"));
-			scoreBoard = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\scoreBoard.png"));
-			background = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\background.jpg"));
-			upFrog = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\upFrog.png"));
-			downFrog = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\downFrog.png"));
-			leftFrog = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\leftFrog.png"));
-			rightFrog = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\rightFrog.png"));
-			log3L = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\log3L.png"));
-			log5L = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\log5L.png"));
-			log7L = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\log7L.png"));
-			truck = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\truck.png"));
-			pinkCar = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\pinkCar.png"));
-			yellowCar = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\yellowCar.png"));
-			bulldozer = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\bulldozer.png"));
-			racecar = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\racecar.png"));
-			turtle2L = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\turtle2L.png"));
-			turtle3L = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\turtle3L.png"));
+			mainMenu = ImageIO.read(new File("C:\\Users\\PheeeG\\OneDrive - University of Calgary\\Frogger\\resources\\mainMenu.png"));
+			pointTable = ImageIO.read(new File("C:\\Users\\PheeeG\\OneDrive - University of Calgary\\Frogger\\resources\\pointTable.png"));
+			gameOver = ImageIO.read(new File("C:\\Users\\PheeeG\\OneDrive - University of Calgary\\Frogger\\resources\\gameOver.png"));
+			youWin = ImageIO.read(new File("C:\\Users\\PheeeG\\OneDrive - University of Calgary\\Frogger\\resources\\youWin.png"));
+			scoreBoard = ImageIO.read(new File("C:\\Users\\PheeeG\\OneDrive - University of Calgary\\Frogger\\resources\\scoreBoard.png"));
+			background = ImageIO.read(new File("C:\\Users\\PheeeG\\OneDrive - University of Calgary\\Frogger\\resources\\background.jpg"));
+			upFrog = ImageIO.read(new File("C:\\Users\\PheeeG\\OneDrive - University of Calgary\\Frogger\\resources\\upFrog.png"));
+			downFrog = ImageIO.read(new File("C:\\Users\\PheeeG\\OneDrive - University of Calgary\\Frogger\\resources\\downFrog.png"));
+			leftFrog = ImageIO.read(new File("C:\\Users\\PheeeG\\OneDrive - University of Calgary\\Frogger\\resources\\leftFrog.png"));
+			rightFrog = ImageIO.read(new File("C:\\Users\\PheeeG\\OneDrive - University of Calgary\\Frogger\\resources\\rightFrog.png"));
+			log3L = ImageIO.read(new File("C:\\Users\\PheeeG\\OneDrive - University of Calgary\\Frogger\\resources\\log3L.png"));
+			log5L = ImageIO.read(new File("C:\\Users\\PheeeG\\OneDrive - University of Calgary\\Frogger\\resources\\log5L.png"));
+			log7L = ImageIO.read(new File("C:\\Users\\PheeeG\\OneDrive - University of Calgary\\Frogger\\resources\\log7L.png"));
+			truck = ImageIO.read(new File("C:\\Users\\PheeeG\\OneDrive - University of Calgary\\Frogger\\resources\\truck.png"));
+			pinkCar = ImageIO.read(new File("C:\\Users\\PheeeG\\OneDrive - University of Calgary\\Frogger\\resources\\pinkCar.png"));
+			yellowCar = ImageIO.read(new File("C:\\Users\\PheeeG\\OneDrive - University of Calgary\\Frogger\\resources\\yellowCar.png"));
+			bulldozer = ImageIO.read(new File("C:\\Users\\PheeeG\\OneDrive - University of Calgary\\Frogger\\resources\\bulldozer.png"));
+			racecar = ImageIO.read(new File("C:\\Users\\PheeeG\\OneDrive - University of Calgary\\Frogger\\resources\\racecar.png"));
+			turtle2L = ImageIO.read(new File("C:\\Users\\PheeeG\\OneDrive - University of Calgary\\Frogger\\resources\\turtle2L.png"));
+			turtle3L = ImageIO.read(new File("C:\\Users\\PheeeG\\OneDrive - University of Calgary\\Frogger\\resources\\turtle3L.png"));
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

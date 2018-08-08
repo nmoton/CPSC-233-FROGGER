@@ -1,3 +1,4 @@
+
 package frogger;
 
 public class Vehicle {
