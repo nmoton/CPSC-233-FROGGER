@@ -409,7 +409,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			}
 			else {
 				playSound(frogHop);
-				score.updateScore(map.frog.getPlayerPosY());
+				map.graphicsEngine.getGameScore(score.updateScore(map.frog.getPlayerPosY()));
 				map.frog.moveUp();
 			}
 		}

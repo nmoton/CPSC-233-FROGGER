@@ -1,8 +1,11 @@
 package frogger;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -15,16 +18,21 @@ import javax.swing.JPanel;
 public class GameGraphics extends JPanel {
 	
 	private int gameMode;
+	private String gameScore = "0";
 	private Frog userFrog;
 	private Log[][] logArray;
 	private Turtle[][] turtleArray;
 	private Vehicle[][] vehicleArray;
 	
+	private Font customFont;
 	private BufferedImage mainMenu;
 	private BufferedImage pointTable;
 	private BufferedImage gameOver;
 	private BufferedImage youWin;
 	private BufferedImage scoreBoard;
+	private BufferedImage map1;
+	private BufferedImage map2;
+	private BufferedImage map3;
 	private BufferedImage background;
 	private BufferedImage upFrog;
 	private BufferedImage downFrog;
@@ -48,7 +56,9 @@ public class GameGraphics extends JPanel {
 			gameOver = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\gameOver.png"));
 			youWin = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\youWin.png"));
 			scoreBoard = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\scoreBoard.png"));
-			background = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\background.jpg"));
+			map1 = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\map1.png"));
+			map2 = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\map2.png"));
+			map3 = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\map3.png"));
 			upFrog = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\upFrog.png"));
 			downFrog = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\downFrog.png"));
 			leftFrog = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\leftFrog.png"));
@@ -67,6 +77,15 @@ public class GameGraphics extends JPanel {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 		}
+		
+		try {
+			this.customFont = Font.createFont(Font.TRUETYPE_FONT, new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\Pixeled.ttf")).deriveFont(12f);
+		     GraphicsEnvironment ge = 
+		         GraphicsEnvironment.getLocalGraphicsEnvironment();
+		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("C:\\\\Users\\\\Nate\\\\Desktop\\\\Frogger Graphics\\\\Pixeled.ttf")));
+		} catch (IOException|FontFormatException e) {
+			// TODO Auto-generated catch block
+		}
 	}
 	
 
@@ -83,8 +102,27 @@ public class GameGraphics extends JPanel {
 				
 		else if (gameMode > 0 && gameMode < 6) {
 			
+			if (gameMode == 3) {
+				this.background = map3;
+			}
+			
+			else if (gameMode == 2) {
+				this.background = map2;
+			}
+			
+			else {
+				this.background = map1;
+			}
+			
+			
+			
 			//Drawing background:
 			g.drawImage(background, 0, 0, null);
+			
+			//Drawing Score:
+			g.setColor(Color.red);
+			g.setFont(this.customFont);
+			g.drawString(this.gameScore, 126, 36);
 		
 			//Drawing Logs:
 			for (int i = 0; i < logArray.length; i++) {
@@ -244,5 +282,9 @@ public class GameGraphics extends JPanel {
 	
 	public void getGameMode(int gameMode) {
 		this.gameMode = gameMode;
+	}
+	
+	public void getGameScore(String gameScore) {
+		this.gameScore = new String (gameScore);
 	}
 }

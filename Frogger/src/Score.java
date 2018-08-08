@@ -14,7 +14,7 @@ import java.util.*;
 public class Score implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	private int score;
+	private int score = 0;
 	private String username;
 	private double highestPosY;
 	private static Scanner keyboard = new Scanner(System.in);
@@ -53,6 +53,10 @@ public class Score implements Serializable {
 	 */
 	public int getScore() {
 		return score;
+	}
+	
+	public String getScoreString() {
+		return new String(Integer.toString(this.score));
 	}
 	
 	/**
@@ -97,12 +101,14 @@ public class Score implements Serializable {
 	 * highestPosY, and updates the highestPosY to the new highest y position reached.
 	 * @param playerPosY
 	 */
-	public void updateScore(double playerPosY) {
+	public String updateScore(double playerPosY) {
 		if(playerPosY < highestPosY) {
 			score += 10;
 			highestPosY = playerPosY;
 		}
-		System.out.println("Score: " + score + " Y: " + playerPosY + " highestY: " + highestPosY);	
+		
+		System.out.println("Score: " + score + " Y: " + playerPosY + " highestY: " + highestPosY);
+		return new String (Integer.toString(this.score));
 	}
 	
 	/**
