@@ -22,10 +22,18 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	* CHANGE THESE VALUES BELOW TO ENABLE/DISABLE COLLISIONS, WATER DETECTION, AND END-ZONES:
 	* 
 	*/
-	private static boolean TOGGLE_COLLISION = false;
-	private static boolean TOGGLE_WATER = false;
+	private static boolean TOGGLE_COLLISION = true;
+	private static boolean TOGGLE_WATER = true;
 	private static boolean TOGGLE_ENDZONE = true;
 	private static boolean TOGGLE_FROGBOUNDARY = true;
+	
+	/**
+	 * 
+	 * CHANGE THIS VALUE TO CHANGE THE INTERVAL/HOW LONG THE DEATH SCREEN APPEARS FOR
+	 * 
+	 */
+	
+	private int deathTime = 2500; //milliseconds
 	
 	/**
 	 * 
@@ -43,12 +51,13 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	private File carCollision;
 	private File fallWater;
 	private File newMap;
-	public Score score;
-	public HighscoreManager hm = new HighscoreManager();
 	private Map map = new Map();
 	private LevelOne map1 = new LevelOne();
 	private LevelTwo map2 = new LevelTwo();
 	private LevelThree map3 = new LevelThree();
+	
+	public Score score;
+	public HighscoreManager hm = new HighscoreManager();
 	
 	public Gameplay() {
 		try {
@@ -132,6 +141,14 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			playSound(fallWater);
 			this.gameMode = 5;
 			map.graphicsEngine.getGameMode(this.gameMode);
+			
+			try {
+				Thread.sleep(this.deathTime);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			repaint();
 		}
 	}
@@ -143,6 +160,14 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			playSound(fallWater);
 			this.gameMode = 5;
 			map.graphicsEngine.getGameMode(this.gameMode);
+			
+			try {
+				Thread.sleep(this.deathTime);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			repaint();
 		}
 	}
@@ -292,8 +317,17 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 		if (userPosX >= xBoundary1 && userPosX <= xBoundary2 && userPosY >= yBoundary1 && userPosY <= yBoundary2) {
 			playSound(fallWater);
 			this.gameMode = 5;
-			timer.stop();
 			map.graphicsEngine.getGameMode(this.gameMode);
+			
+			try {
+				Thread.sleep(this.deathTime);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			timer.stop();
+			
 			repaint();
 		}
 	}
@@ -444,6 +478,14 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 					this.gameMode = 5;
 					playSound(carCollision);
 					map.graphicsEngine.getGameMode(this.gameMode);
+					
+					try {
+						Thread.sleep(this.deathTime);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
 					repaint();
 					}
 		}
@@ -455,6 +497,14 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 				this.gameMode = 5;
 				playSound(carCollision);
 				map.graphicsEngine.getGameMode(this.gameMode);
+				
+				try {
+					Thread.sleep(this.deathTime);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				repaint();
 			}
 		}
