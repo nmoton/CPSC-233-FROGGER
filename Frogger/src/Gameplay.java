@@ -44,9 +44,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	private File fallWater;
 	private File newMap;
 	public Score score;
-	private Map map = new Map();
 	public HighscoreManager hm = new HighscoreManager();
-	priavte LevelOne map1 = new LevelOne();
+	private Map map = new Map();
+	private LevelOne map1 = new LevelOne();
 	private LevelTwo map2 = new LevelTwo();
 	private LevelThree map3 = new LevelThree();
 	
@@ -110,8 +110,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 		
 		//Checks to see if user entered the end zone:
 		if (TOGGLE_ENDZONE) {
-			checkEndZone(map.getEndZoneXBoundary1(), map.getEndZoneYBoundary1(), map.getEndZoneXBoundary2(),
-					map.getEndZoneYBoundary2(), map.frog.getPlayerPosX(), map.frog.getPlayerPosY());
+			checkFrogEndZoneBoundary();
 		}
 		
 		if (TOGGLE_FROGBOUNDARY) {
@@ -128,7 +127,18 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	}
 	
 	public void checkFrogInBounds(){
-	if (map.frog.getPlayerPosX() < 0 || map.frog.getPlayerPosX() + 32 > 640) {
+		if (map.frog.getPlayerPosX() < 0 || map.frog.getPlayerPosX() + 32 > 640) {
+			timer.stop();
+			playSound(fallWater);
+			this.gameMode = 5;
+			map.graphicsEngine.getGameMode(this.gameMode);
+			repaint();
+		}
+	}
+	
+	public void checkFrogEndZoneBoundary() {
+		if (map.frog.getPlayerPosY() <= map.getEndZoneYBoundary2() && !checkEndZone(map.getEndZoneXBoundary1(), map.getEndZoneYBoundary1(), map.getEndZoneXBoundary2(),
+				map.getEndZoneYBoundary2(), map.frog.getPlayerPosX(), map.frog.getPlayerPosY())) {
 			timer.stop();
 			playSound(fallWater);
 			this.gameMode = 5;
@@ -288,7 +298,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 		}
 	}
 	
-	public void checkEndZone(int xBoundary1, int yBoundary1, int xBoundary2, int yBoundary2, double userPosX, double userPosY) {
+	public boolean checkEndZone(int xBoundary1, int yBoundary1, int xBoundary2, int yBoundary2, double userPosX, double userPosY) {
 		if (userPosX >= xBoundary1 && userPosX <= xBoundary2 && userPosY >= yBoundary1 && userPosY <= yBoundary2) {
 			this.gameMode++;
 			score.clearLevelScore();
@@ -298,12 +308,16 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 				timer.stop();
 				map.graphicsEngine.getGameMode(this.gameMode);
 				repaint();
+				return true;
 			}
 			
 			else {
 				playSound(newMap);
+				return true;
 			}
+			
 		}
+		return false;
 	}
 	
 	public int getGameMode() {
