@@ -143,6 +143,18 @@ public class HighscoreManager {
         return highscoreString;
         
     } 
+	
+    public String getHighestScore() {
+    	return String.valueOf(scoreList.get(0));
+    }
+    
+    public String[] topFive() {
+		String[] topFive = new String[5];
+		for(int i = 0; i < 5; i++) {
+			topFive[i] = String.valueOf(scoreList.get(i));
+		}
+		return topFive;	
+    }
     
     //Only used for JUnit Testing
     public ArrayList<Score> copyList(){
