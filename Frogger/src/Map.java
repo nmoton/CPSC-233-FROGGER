@@ -12,9 +12,9 @@ public class Map{
 	private double frogStartingY = 448;
 	
 	//End zone boundaries:
-	private int endZoneXBoundary1 = 256;
+	private int endZoneXBoundary1 = 262;
 	private int endZoneYBoundary1 = 32;
-	private int endZoneXBoundary2 = 320;
+	private int endZoneXBoundary2 = 346;
 	private int endZoneYBoundary2 = 64;
 	
 	//Frog for testing (LEAVE DEFAULT):
