@@ -2,13 +2,20 @@ package frogger;
 
 public class Frog {
 	
-	private double playerPosX;
-	private double playerPosY;
+	private double playerPosX = 0;
+	private double playerPosY = 448;
 	private char lastFacing = 'U';
 	
+	public Frog(){
+	}
+	
 	public Frog(double setPlayerPosX, double setPlayerPosY) {
-		setPosX(setPlayerPosX);
-		setPosY(setPlayerPosY);
+		if(setPlayerPosX >= 0 && setPlayerPosX <= 608){
+			setPosX(setPlayerPosX);
+		}
+		if(setPlayerPosY >= 0 && setPlayerPosY <= 448){
+			setPosY(setPlayerPosY);
+		}
 	}
 	
 	public void moveUp() {
