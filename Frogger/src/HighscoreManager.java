@@ -14,7 +14,7 @@ import java.util.Comparator;
  * 
  * @author Justin Flores
  * 
- * This class stores scores and names of players and stores them in an arrayList. It sorts the 
+ * This class stores scores of players and stores them in an arrayList. It sorts the 
  * arrayList based on the player's score or who achieved the score first. it manages how scores
  * are handled/sorted and where they should be stored.
  * 
@@ -121,7 +121,7 @@ public class HighscoreManager {
 	
 	/**
 	 * Note: only used for text-based version
-	 * Creates a string that shows the top five scores and the players' name
+	 * Creates a string that shows the top five scores
 	 * @return highscoreString - string with a certain format that shows the highscores
 	 */
     public String getHighscoreString() {
@@ -137,7 +137,7 @@ public class HighscoreManager {
             x = max;
         }
         while (i < x) {
-            highscoreString += (i + 1) + "]" + " " + scoreList.get(i).getUsername() + " ------ " + scoreList.get(i).getScore() + "\n";
+            highscoreString += (i + 1) + "]" + " ------ " + scoreList.get(i).getScore() + "\n";
             i++;
         }
         return highscoreString;
