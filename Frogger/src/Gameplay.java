@@ -336,7 +336,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 		if (userPosX >= xBoundary1 && userPosX <= xBoundary2 && userPosY >= yBoundary1 && userPosY <= yBoundary2) {
 			this.gameMode++;
 			score.clearLevelScore();
-			score.setHighestPosY(448);
+			score.setHighestPosY(480);
 			
 			if (this.gameMode == 4) {
 				timer.stop();
@@ -371,7 +371,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 				System.out.println(hm.getHighscoreString());//For testing. Delete after graphics is added
 				playSound(startGame);
 				this.gameMode++;
-				score = new Score(448);
+				score = new Score(480.0);
 				map.graphicsEngine.getGameMode(this.gameMode);
 				repaint();
 			}
@@ -384,7 +384,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			}
 
 			else if (this.gameMode == 4 || this.gameMode == 5){
-				score.setUsername();
 				hm.saveScore(score);
 				map1 = new LevelOne();
 				map2 = new LevelTwo();
@@ -404,45 +403,24 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 		
 		else {
 		if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
-			if (map.frog.getPlayerPosY() <= 0) {
-				 map.frog.setPosY(0);
-			}
-			else {
-				playSound(frogHop);
-				map.graphicsEngine.getGameScore(score.updateScore(map.frog.getPlayerPosY()));
-				map.frog.moveUp();
-			}
+			playSound(frogHop);
+			map.graphicsEngine.getGameScore(score.updateScore(map.frog.getPlayerPosY()));
+			map.frog.moveUp();
 		}
 			
 		else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
-			if (map.frog.getPlayerPosY() >= 448) {
-				map.frog.setPosY(448);
-			}
-			else {
-				playSound(frogHop);
-				map.frog.moveDown();
-			}
+			playSound(frogHop);
+			map.frog.moveDown();
 		}
 		
 		else if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
-			if (map.frog.getPlayerPosX() >= 608) {
-				map.frog.setPosX(608);
-			}
-			else {
-				playSound(frogHop);
-				map.frog.moveRight();
-			}
-			
+			playSound(frogHop);
+			map.frog.moveRight();			
 		}
 		
 		else if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
-			if (map.frog.getPlayerPosX() <= 0) {
-				map.frog.setPosX(0);
-			}
-			else {
-				playSound(frogHop);
-				map.frog.moveLeft();
-			}
+			playSound(frogHop);
+			map.frog.moveLeft();
 		}
 		}
 	}

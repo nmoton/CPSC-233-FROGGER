@@ -12,22 +12,42 @@ public class Frog {
 	}
 	
 	public void moveUp() {
-		this.playerPosY -= 32;
+		if (this.playerPosY < 32){
+			setPosY(0);
+		}
+		else{
+			this.playerPosY -= 32;
+		}
 		this.lastFacing = 'U';
 	}
 	
 	public void moveDown() {
-		this.playerPosY += 32;
+		if (this.playerPosY >= 448){
+			setPosY(448);
+		}
+		else{
+			this.playerPosY += 32;
+		}
 		this.lastFacing = 'D';
 	}
 	
 	public void moveLeft() {
-		this.playerPosX -= 32;
+		if (this.playerPosX < 32){
+			setPosX(0);
+		}
+		else{
+			this.playerPosX -= 32;
+		}
 		this.lastFacing = 'L';
 	}
 	
 	public void moveRight() {
-		this.playerPosX += 32;
+		if (this.playerPosX > 576){
+			setPosX(608);
+		}
+		else{
+			this.playerPosX += 32;
+		}
 		this.lastFacing = 'R';
 	}
 	
