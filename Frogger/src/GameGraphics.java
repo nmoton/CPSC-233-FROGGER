@@ -280,7 +280,7 @@ public class GameGraphics extends JPanel {
 		this.vehicleArray = mapVehicleArray;
 	}
 	
-	public void getGameMode(int gameMode) {
+	public void setGameMode(int gameMode) {
 		this.gameMode = gameMode;
 	}
 	
