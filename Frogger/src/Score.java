@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * @author Justin Flores
  *
- *An object that holds the score and name of player. It can also update the score
+ *An object that holds the score of player. It can also update the score
  *of the player.
  *
  * Last Updated:07/08/2018
@@ -18,7 +18,7 @@ public class Score implements Serializable {
 	private double highestPosY;
 	
 	/**
-	 * Initializes the name, score, and highest y-position that
+	 * Initializes the score, and highest y-position that
 	 * the player has achieved
 	 * @param posY - starting y position of the player
 	 */
@@ -34,7 +34,7 @@ public class Score implements Serializable {
 	}
 	
 	/**
-	 * A copy constructor, which copies the name and score of a Score object
+	 * A copy constructor, which copies the score of a Score object
 	 * @param toCopy - that object that is being copied
 	 */
 	Score(Score toCopy){
