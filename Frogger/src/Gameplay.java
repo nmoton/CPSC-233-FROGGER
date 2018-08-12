@@ -72,7 +72,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			
 		}
 		
-		map.graphicsEngine.getGameMode(this.gameMode);
+		map.graphicsEngine.setGameMode(getGameMode());
 		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
@@ -88,32 +88,32 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 		
 		switch(this.gameMode) {
 			case -1: //Main Menu
-				map.graphicsEngine.getGameMode(-1);
+				map.graphicsEngine.setGameMode(getGameMode());
 				break;
 			case 0: //Point Table
 				playSound(startGame);
-				map.graphicsEngine.getGameMode(0);
+				map.graphicsEngine.setGameMode(getGameMode());
 				break;
 			case 1: //First Level
 				map = map1;
-				map.graphicsEngine.getGameMode(1);
+				map.graphicsEngine.setGameMode(getGameMode());
 				break;
 			case 2: //Second Level
 				map = map2;
-				map.graphicsEngine.getGameMode(2);
+				map.graphicsEngine.setGameMode(getGameMode());
 				break;
 			case 3: //Third Level
 				map = map3;
-				map.graphicsEngine.getGameMode(3);
+				map.graphicsEngine.setGameMode(getGameMode());
 				break;
 			case 4: //Game End - Lose
-				map.graphicsEngine.getGameMode(4);
+				map.graphicsEngine.setGameMode(getGameMode());
 				break;
 			case 5: //Game End - Win
-				map.graphicsEngine.getGameMode(5);
+				map.graphicsEngine.setGameMode(getGameMode());
 				break;
 			case 6: //Show score board
-				map.graphicsEngine.getGameMode(6);
+				map.graphicsEngine.setGameMode(getGameMode());
 				break;
 		}
 		
@@ -140,7 +140,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			timer.stop();
 			playSound(fallWater);
 			this.gameMode = 5;
-			map.graphicsEngine.getGameMode(this.gameMode);
+			map.graphicsEngine.setGameMode(getGameMode());
 			
 			try {
 				Thread.sleep(this.deathTime);
@@ -158,8 +158,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 				map.getEndZoneYBoundary2(), map.frog.getPlayerPosX(), map.frog.getPlayerPosY())) {
 			timer.stop();
 			playSound(fallWater);
-			this.gameMode = 5;
-			map.graphicsEngine.getGameMode(this.gameMode);
+			setGameMode(5);
+			map.graphicsEngine.setGameMode(getGameMode());
 			
 			try {
 				Thread.sleep(this.deathTime);
@@ -316,8 +316,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 	public void checkWater(int xBoundary1, double yBoundary1, int xBoundary2, double yBoundary2, double userPosX, double userPosY) {
 		if (userPosX >= xBoundary1 && userPosX <= xBoundary2 && userPosY >= yBoundary1 && userPosY <= yBoundary2) {
 			playSound(fallWater);
-			this.gameMode = 5;
-			map.graphicsEngine.getGameMode(this.gameMode);
+			setGameMode(5);
+			map.graphicsEngine.setGameMode(getGameMode());
 			
 			try {
 				Thread.sleep(this.deathTime);
@@ -340,7 +340,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			
 			if (this.gameMode == 4) {
 				timer.stop();
-				map.graphicsEngine.getGameMode(this.gameMode);
+				map.graphicsEngine.setGameMode(getGameMode());
 				repaint();
 				return true;
 			}
@@ -358,7 +358,12 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 		return this.gameMode;
 	}
 	
-
+	public void setGameMode(int gMode){
+		if(gMode >= -1 && gMode <= 6){
+			this.gameMode = gMode;
+		}
+	}
+	
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
@@ -372,14 +377,14 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 				playSound(startGame);
 				this.gameMode++;
 				score = new Score(480.0);
-				map.graphicsEngine.getGameMode(this.gameMode);
+				map.graphicsEngine.setGameMode(getGameMode());
 				repaint();
 			}
 			
 			else if (this.gameMode == 0) {
 				timer.start();
 				this.gameMode++;
-				map.graphicsEngine.getGameMode(this.gameMode);
+				map.graphicsEngine.setGameMode(getGameMode());
 				playSound(newMap);
 			}
 
@@ -389,14 +394,14 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 				map2 = new LevelTwo();
 				map3 = new LevelThree();
 				timer.stop();
-				this.gameMode = 6;
-				map.graphicsEngine.getGameMode(this.gameMode);
+				setGameMode(6);
+				map.graphicsEngine.setGameMode(getGameMode());
 				repaint();
 			}
 			
 			else if (this.gameMode == 6) {
-				this.gameMode = -1;
-				map.graphicsEngine.getGameMode(this.gameMode);
+				setGameMode(-1);
+				map.graphicsEngine.setGameMode(getGameMode());
 				repaint();
 			}
 		}
@@ -441,9 +446,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 		if (map.frog.getPlayerPosX() - vehicle.getVehiclePosX() < 32 && map.frog.getPlayerPosX() - vehicle.getVehiclePosX() > -20 &&
 					vehicle.getVehiclePosY() == map.frog.getPlayerPosY()) {
 				timer.stop();
-				this.gameMode = 5;
+				setGameMode(5);
 				playSound(carCollision);
-				map.graphicsEngine.getGameMode(this.gameMode);
+				map.graphicsEngine.setGameMode(getGameMode());
 				repaint();
 				}
 		}
@@ -453,9 +458,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			if (map.frog.getPlayerPosX() - vehicle.getVehiclePosX() > -32 && map.frog.getPlayerPosX() - vehicle.getVehiclePosX() < 48 &&
 						vehicle.getVehiclePosY() == map.frog.getPlayerPosY()) {
 					timer.stop();
-					this.gameMode = 5;
+					setGameMode(5);
 					playSound(carCollision);
-					map.graphicsEngine.getGameMode(this.gameMode);
+					map.graphicsEngine.setGameMode(getGameMode());
 					
 					try {
 						Thread.sleep(this.deathTime);
@@ -472,9 +477,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			if (map.frog.getPlayerPosX() - vehicle.getVehiclePosX() > -32 && map.frog.getPlayerPosX() - vehicle.getVehiclePosX() < 20 &&
 					vehicle.getVehiclePosY() == map.frog.getPlayerPosY()){
 				timer.stop();
-				this.gameMode = 5;
+				setGameMode(5);
 				playSound(carCollision);
-				map.graphicsEngine.getGameMode(this.gameMode);
+				map.graphicsEngine.setGameMode(getGameMode());
 				
 				try {
 					Thread.sleep(this.deathTime);
