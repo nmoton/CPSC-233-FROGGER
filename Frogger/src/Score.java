@@ -15,9 +15,7 @@ public class Score implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	private int score = 0;
-	private String username;
 	private double highestPosY;
-	private static Scanner keyboard = new Scanner(System.in);
 	
 	/**
 	 * Initializes the name, score, and highest y-position that
@@ -26,15 +24,13 @@ public class Score implements Serializable {
 	 */
 	Score(double posY){
 		score = 0;
-		username = null;
 		setHighestPosY(posY);
 	}
 	
 	//Only used for JUnit Testing
-	Score(int s, String name){
+	Score(int s){
 		score = s;
-		username = name;
-		setHighestPosY(448);
+		setHighestPosY(480);
 	}
 	
 	/**
@@ -42,8 +38,7 @@ public class Score implements Serializable {
 	 * @param toCopy - that object that is being copied
 	 */
 	Score(Score toCopy){
-		this.score = toCopy.score;
-		this.username = toCopy.username;
+		this.score = toCopy.getScore();
 	}
 	
 	/**
@@ -60,14 +55,6 @@ public class Score implements Serializable {
 	}
 	
 	/**
-	 * Description: returns the username of the player
-	 * @return - the username of the player 
-	 */
-	public String getUsername() {
-		return username;
-	}
-	
-	/**
 	 * Sets the highest y-position that the player reached, which is used to
 	 * update the score of the player It can also be used to reset the highest 
 	 * y-position when going to a new level
@@ -75,25 +62,6 @@ public class Score implements Serializable {
 	 */
 	public void setHighestPosY(double posY) {
 		highestPosY = posY;
-	}
-	
-	/**
-	 * Sets the username of the player through keyboard inputs.
-	 * Keeps prompting until the user enters a username
-	 */
-	public void setUsername() {
-		Boolean flag = false;
-		String userInput = null;
-		while(flag == false) {
-			System.out.println("Enter your username: ");
-			userInput = keyboard.nextLine();
-			if(userInput.trim().equals("")) {
-				System.out.println("You must enter a username!");
-			}else {
-				username = userInput;
-				flag = true;
-			}
-		}
 	}
 	
 	/**
@@ -118,7 +86,4 @@ public class Score implements Serializable {
 		score += 1000;
 		System.out.println(score);
 	}
-
-	
-
 }
