@@ -70,13 +70,13 @@ public class Score implements Serializable {
 	 * @param playerPosY
 	 */
 	public String updateScore(double playerPosY) {
+		String scoreAsString;
 		if(playerPosY < highestPosY) {
 			score += 10;
 			highestPosY = playerPosY;
 		}
-		
-		System.out.println("Score: " + score + " Y: " + playerPosY + " highestY: " + highestPosY);
-		return new String (Integer.toString(this.score));
+		scoreAsString = (String)(Integer.toString(this.score));
+		return scoreAsString;
 	}
 	
 	/**
@@ -84,6 +84,5 @@ public class Score implements Serializable {
 	 */
 	public void clearLevelScore() {
 		score += 1000;
-		System.out.println(score);
 	}
 }
