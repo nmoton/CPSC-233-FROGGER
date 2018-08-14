@@ -23,7 +23,14 @@ public class GameGraphics extends JPanel {
 	private Log[][] logArray;
 	private Turtle[][] turtleArray;
 	private Vehicle[][] vehicleArray;
+	private String best = "";
+	private String secondBest = "";
+	private String thirdBest = "";
+	private String fourthBest = "";
+	private String fifthBest = "";
+
 	
+	private Font highscoreFont;
 	private Font customFont;
 	private BufferedImage mainMenu;
 	private BufferedImage pointTable;
@@ -83,6 +90,9 @@ public class GameGraphics extends JPanel {
 		     GraphicsEnvironment ge = 
 		         GraphicsEnvironment.getLocalGraphicsEnvironment();
 		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("C:\\\\Users\\\\Nate\\\\Desktop\\\\Frogger Graphics\\\\Pixeled.ttf")));
+		
+			this.highscoreFont = customFont.deriveFont(16f);
+			
 		} catch (IOException|FontFormatException e) {
 			// TODO Auto-generated catch block
 		}
@@ -261,6 +271,13 @@ public class GameGraphics extends JPanel {
 			
 		else {
 			g.drawImage(scoreBoard, 0, 0, null);
+			g.setColor(Color.white);
+			g.setFont(this.highscoreFont);
+			g.drawString(best, 270, 274);
+			g.drawString(secondBest, 270, 305);
+			g.drawString(thirdBest, 270, 336);
+			g.drawString(fourthBest, 270, 367);
+			g.drawString(fifthBest, 270, 393);
 		}
 	}
 
@@ -286,5 +303,23 @@ public class GameGraphics extends JPanel {
 	
 	public void getGameScore(String gameScore) {
 		this.gameScore = new String (gameScore);
+	}
+	
+	public void setBestScores(String highestScores){
+		if(highestScores.length() >= 5){
+			best = highestScores.substring(0,4);
+			if(highestScores.length() >= 10) {
+				secondBest = highestScores.substring(5, 9);
+				if (highestScores.length() >= 15) {
+					thirdBest = highestScores.substring(10, 14);
+					if (highestScores.length() >= 20) {
+						fourthBest = highestScores.substring(15, 19);
+						if (highestScores.length() == 25) {
+							fifthBest = highestScores.substring(20, 24);
+						}
+					}
+				}
+			}
+		}
 	}
 }
