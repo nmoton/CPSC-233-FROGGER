@@ -26,13 +26,7 @@ public class Score implements Serializable {
 		score = 0;
 		setHighestPosY(posY);
 	}
-	
-	//Only used for JUnit Testing
-	Score(int s){
-		score = s;
-		setHighestPosY(480);
-	}
-	
+		
 	/**
 	 * A copy constructor, which copies the score of a Score object
 	 * @param toCopy - that object that is being copied
@@ -50,6 +44,10 @@ public class Score implements Serializable {
 		return score;
 	}
 	
+	/**
+	*Gets the score and returns it as a string
+	*@return the players score as a string
+	*/
 	public String getScoreString() {
 		return new String(Integer.toString(this.score));
 	}
