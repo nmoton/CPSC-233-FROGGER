@@ -1,7 +1,13 @@
 package frogger;
-
+/**
+This class is a subclass of Map which contains an instance variable
+and methods that sets the position of the obstacles in the map
+*/
 public class LevelTwo extends Map {
 	
+	/* This method  sets the obstacle arrays in the map
+	*using its own instance variables
+	*/
 	public LevelTwo() {
 		super.logArray = level2LogArray;
 		super.vehicleArray = level2VehicleArray;
@@ -9,7 +15,7 @@ public class LevelTwo extends Map {
 		MapGraphics();
 	}
 		
-	
+	//Contains the x and y position, speed, and lenght of all the logs
 	private Log[][] level2LogArray = {
 		//Right-bound logs @ y = 96.0, traveling at speed of 1.5, varying gaps, and length of 5:
 		{new Log (0.0, 96.0, 1.5, 5, true), new Log (224.0, 96.0, 1.5, 5, true), new Log (448.0, 96.0, 1.5, 5, true),
