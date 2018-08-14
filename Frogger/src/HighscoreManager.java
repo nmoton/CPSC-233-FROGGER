@@ -137,7 +137,7 @@ public class HighscoreManager {
             x = max;
         }
         while (i < x) {
-            highscoreString += (i + 1) + "]" + " ------ " + scoreList.get(i).getScore() + "\n";
+            highscoreString += String.format("%1$-4s" ,scoreList.get(i).getScore()) + " ";
             i++;
         }
         return highscoreString;
@@ -146,14 +146,6 @@ public class HighscoreManager {
 	
     public String getHighestScore() {
     	return String.valueOf(scoreList.get(0));
-    }
-    
-    public String[] topFive() {
-		String[] topFive = new String[5];
-		for(int i = 0; i < 5; i++) {
-			topFive[i] = String.valueOf(scoreList.get(i));
-		}
-		return topFive;	
     }
     
     //Only used for JUnit Testing

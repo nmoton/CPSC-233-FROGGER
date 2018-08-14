@@ -101,10 +101,12 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			case 2: //Second Level
 				map = map2;
 				map.graphicsEngine.setGameMode(getGameMode());
+				map.graphicsEngine.getGameScore(score.updateScore(map.frog.getPlayerPosY()));
 				break;
 			case 3: //Third Level
 				map = map3;
 				map.graphicsEngine.setGameMode(getGameMode());
+				map.graphicsEngine.getGameScore(score.updateScore(map.frog.getPlayerPosY()));
 				break;
 			case 4: //Game End - Lose
 				map.graphicsEngine.setGameMode(getGameMode());
@@ -139,7 +141,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 		if (map.frog.getPlayerPosX() < 0 || map.frog.getPlayerPosX() + 32 > 640) {
 			timer.stop();
 			playSound(fallWater);
-			this.gameMode = 5;
+			setGameMode(5);
 			map.graphicsEngine.setGameMode(getGameMode());
 			
 			try {
@@ -373,7 +375,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 		
 		if (this.gameMode < 1 || this.gameMode > 3) {
 			if (gameMode == -1) {
-				System.out.println(hm.getHighscoreString());//For testing. Delete after graphics is added
 				playSound(startGame);
 				this.gameMode++;
 				score = new Score(480.0);
@@ -396,6 +397,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 				timer.stop();
 				setGameMode(6);
 				map.graphicsEngine.setGameMode(getGameMode());
+				map.graphicsEngine.setBestScores(hm.getHighscoreString());
+				System.out.println(hm.getHighscoreString()); //For testing.
 				repaint();
 			}
 			
