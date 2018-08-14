@@ -2,7 +2,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class ScoreTest {
+public class TextBasedScoreTest {
 
     /**
      * This test case if the updateScore() checks if the score
@@ -10,7 +10,7 @@ public class ScoreTest {
      */
     @Test
     public void test__alwaysGoUp() {
-        Score player = new Score(480.0);//Starting score is zero
+        TextBasedScore player = new TextBasedScore(480);//Starting score is zero
 
         assertEquals("Player should have 0", 0, player.getScore());
 
@@ -34,7 +34,7 @@ public class ScoreTest {
      */
     @Test
     public void test__moveDownAndUp() {
-        Score player = new Score(480.0);//Starting score is zero
+        TextBasedScore player = new TextBasedScore(480);//Starting score is zero
 
         assertEquals("Player should have 0", 0, player.getScore());
 

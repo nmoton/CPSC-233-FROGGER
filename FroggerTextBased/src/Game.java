@@ -11,8 +11,8 @@
 public class Game{
     private boolean playing = true;
     private Frog frog;
-    private Score score;
-    private HighscoreManager hm;
+    private TextBasedScore score;
+    private TextBasedHighscoreManager hm;
     private Car car1;
     private Car car2;
     private Car car3;
@@ -30,8 +30,8 @@ public class Game{
          */
         playing = true;
         frog = new Frog();
-        score = new Score(frog.getFrogY());
-        hm = new HighscoreManager();
+        score = new TextBasedScore(frog.getFrogY());
+        hm = new TextBasedHighscoreManager();
         car1 = new Car(2,4);
         car2 = new Car(7,4);
         car3 = new Car(3,6);

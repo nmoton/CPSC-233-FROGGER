@@ -20,8 +20,8 @@ import java.util.Comparator;
  * Last Updated: 07/08/2018
  *
  */
-public class HighscoreManager {
-	private ArrayList<Score> scoreList;//Where the scores are added
+public class TextBasedHighscoreManager {
+	private ArrayList<TextBasedScore> scoreList;//Where the scores are added
 	
 	private static final String HIGHSCORE_FILE = "Highscore.dat";
 	
@@ -31,8 +31,8 @@ public class HighscoreManager {
 	/**
 	 * Initializes the arrayList for the scores
 	 */
-	public HighscoreManager() {
-		scoreList = new ArrayList<Score>();
+	public TextBasedHighscoreManager() {
+		scoreList = new ArrayList<TextBasedScore>();
 	}
 	
 	/**
@@ -40,9 +40,9 @@ public class HighscoreManager {
 	 * or who got the highest score first.
 	 */
 	public void sortScores(){
-		Collections.sort(scoreList, new Comparator<Score>()
+		Collections.sort(scoreList, new Comparator<TextBasedScore>()
 				{
-					public int compare(Score s1, Score s2) {
+					public int compare(TextBasedScore s1, TextBasedScore s2) {
 						return Integer.valueOf(s2.getScore()).compareTo(s1.getScore());
 					}
 				});
@@ -55,7 +55,7 @@ public class HighscoreManager {
 	private void loadScoreFile() {
 		try {
 			input = new ObjectInputStream(new FileInputStream(HIGHSCORE_FILE));
-			scoreList = (ArrayList<Score>) input.readObject();
+			scoreList = (ArrayList<TextBasedScore>) input.readObject();
 		}catch (FileNotFoundException e) {
 			System.out.println("[Laad] FNF Error: " + e.getMessage());
 		}catch (IOException e) {
@@ -80,7 +80,7 @@ public class HighscoreManager {
 	 * @param toAdd - the score object to be added to the scoreList and 
 	 * Highscore.dat file
 	 */
-	public void saveScore(Score toAdd) {
+	public void saveScore(TextBasedScore toAdd) {
 		loadScoreFile();
 		addScoreToList(toAdd);
 		updateScoreFile();
@@ -113,7 +113,7 @@ public class HighscoreManager {
      * Adds a score object to the scoreList arrayList
      * @param toAdd - the score object that is going to be added
      */
-    public void addScoreToList(Score toAdd) {
+    public void addScoreToList(TextBasedScore toAdd) {
     	scoreList.add(toAdd);
     }
 	
@@ -143,8 +143,8 @@ public class HighscoreManager {
     } 
     
     //Only used for JUnit Testing
-    public ArrayList<Score> copyList(){
-    	ArrayList<Score> copyList = new ArrayList<Score>(scoreList);
+    public ArrayList<TextBasedScore> copyList(){
+    	ArrayList<TextBasedScore> copyList = new ArrayList<TextBasedScore>(scoreList);
     	return copyList;
     }
 	
