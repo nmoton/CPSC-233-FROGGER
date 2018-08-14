@@ -96,16 +96,19 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 				break;
 			case 1: //First Level
 				map = map1;
+				map.graphicsEngine.setBestScores(hm.getHighscoreString());
 				map.graphicsEngine.setGameMode(getGameMode());
 				break;
 			case 2: //Second Level
 				map = map2;
 				map.graphicsEngine.setGameMode(getGameMode());
+				map.graphicsEngine.setBestScores(hm.getHighscoreString());
 				map.graphicsEngine.getGameScore(score.updateScore(map.frog.getPlayerPosY()));
 				break;
 			case 3: //Third Level
 				map = map3;
 				map.graphicsEngine.setGameMode(getGameMode());
+				map.graphicsEngine.setBestScores(hm.getHighscoreString());
 				map.graphicsEngine.getGameScore(score.updateScore(map.frog.getPlayerPosY()));
 				break;
 			case 4: //Game End - Lose
@@ -378,6 +381,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 				playSound(startGame);
 				this.gameMode++;
 				score = new Score(480.0);
+				hm.saveScore(score);
 				map.graphicsEngine.setGameMode(getGameMode());
 				repaint();
 			}
@@ -414,6 +418,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 			playSound(frogHop);
 			map.graphicsEngine.getGameScore(score.updateScore(map.frog.getPlayerPosY()));
 			map.frog.moveUp();
+			map.graphicsEngine.setBestScores(hm.getHighscoreString());
 		}
 			
 		else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {

@@ -34,6 +34,7 @@ public class HighscoreManager {
 	 */
 	public HighscoreManager() {
 		scoreList = new ArrayList<Score>();
+		updateScoreFile();
 	}
 	
 	/**

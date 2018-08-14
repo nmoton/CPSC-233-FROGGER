@@ -23,11 +23,12 @@ public class GameGraphics extends JPanel {
 	private Log[][] logArray;
 	private Turtle[][] turtleArray;
 	private Vehicle[][] vehicleArray;
-	private String best = "";
-	private String secondBest = "";
-	private String thirdBest = "";
-	private String fourthBest = "";
-	private String fifthBest = "";
+	private String best = "0";
+	private String secondBest = "0";
+	private String thirdBest = "0";
+	private String fourthBest = "0";
+	private String fifthBest = "0";
+	private String highestScore = "0";
 
 	
 	private Font highscoreFont;
@@ -133,6 +134,7 @@ public class GameGraphics extends JPanel {
 			g.setColor(Color.red);
 			g.setFont(this.customFont);
 			g.drawString(this.gameScore, 126, 36);
+			g.drawString(this.highestScore, 450, 36);
 		
 			//Drawing Logs:
 			for (int i = 0; i < logArray.length; i++) {
@@ -319,6 +321,14 @@ public class GameGraphics extends JPanel {
 						}
 					}
 				}
+			}
+			int intBest = Integer.parseInt(best.trim());
+			int intScore = Integer.parseInt(gameScore.trim());
+			if(intBest < intScore){
+				highestScore = gameScore;
+			}
+			else{
+				highestScore = best;
 			}
 		}
 	}
