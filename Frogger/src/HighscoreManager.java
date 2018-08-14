@@ -144,12 +144,20 @@ public class HighscoreManager {
         return highscoreString;
         
     } 
-	
+	/**
+	*Gets the highest score in the scoreList and returns it as
+	*a string
+	*@return the highest score as a string
+	*/
     public String getHighestScore() {
     	return String.valueOf(scoreList.get(0));
     }
     
-    //Only used for JUnit Testing
+    /**
+    *Only used in JUnit Testing
+    *Copies the scoreList
+    *@return copyList - which is the copy of scoreList
+    */
     public ArrayList<Score> copyList(){
     	ArrayList<Score> copyList = new ArrayList<Score>(scoreList);
     	return copyList;
