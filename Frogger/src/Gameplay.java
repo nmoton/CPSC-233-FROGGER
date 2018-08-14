@@ -381,6 +381,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 				playSound(startGame);
 				this.gameMode++;
 				score = new Score(480.0);
+				hm.saveScore(score);
 				map.graphicsEngine.setGameMode(getGameMode());
 				repaint();
 			}
