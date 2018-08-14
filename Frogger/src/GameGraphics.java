@@ -15,6 +15,15 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+/**
+ * @author Nathan Moton
+ * @editors Michael Manila
+ *
+ * The GameGraphics class is a graphics engine that deals entirely with all graphical features of the game. This includes
+ * drawing the frog, logs, vehicles, and turtles to the map; loading the menus, and drawing the score onto the screen. 
+ *
+ * Last Updated:08/14/2018
+ */
 public class GameGraphics extends JPanel {
 	
 	private int gameMode;
@@ -57,7 +66,14 @@ public class GameGraphics extends JPanel {
 	private BufferedImage turtle2L;
 	private BufferedImage turtle3L;
 	
+	/**
+	 * 
+	 * ENSURE THE FILE DIRECTORIES ARE CORRECT
+	 * 
+	 * Default constructor that loads all required game images, fonts, and sprites.
+	 */
 	public GameGraphics(){
+		//Loading all images and sprites
 		try {
 			mainMenu = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\mainMenu.png"));
 			pointTable = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\pointTable.png"));
@@ -83,9 +99,10 @@ public class GameGraphics extends JPanel {
 			turtle3L = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\turtle3L.png"));
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 		}
 		
+		//Loading all fonts
 		try {
 			this.customFont = Font.createFont(Font.TRUETYPE_FONT, new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\Pixeled.ttf")).deriveFont(12f);
 		     GraphicsEnvironment ge = 
@@ -95,22 +112,27 @@ public class GameGraphics extends JPanel {
 			this.highscoreFont = customFont.deriveFont(16f);
 			
 		} catch (IOException|FontFormatException e) {
-			// TODO Auto-generated catch block
+			
 		}
 	}
 	
-
+	/**
+	 * Method that will draw the proper graphical components to the screen depending on the game mode (set by the game engine).
+	 */
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		
+		//The main menu
 		if (gameMode == -1) {
 			g.drawImage(mainMenu, 0, 0, null);
 		}
 		
+		//The instructions/point table
 		else if (gameMode == 0) {
 			g.drawImage(pointTable, 0, 0, null);
 		}
-				
+		
+		//The maps that are loaded in-game
 		else if (gameMode > 0 && gameMode < 6) {
 			
 			if (gameMode == 3) {
@@ -271,42 +293,82 @@ public class GameGraphics extends JPanel {
 			}
 		}
 			
+		//Drawing the score board
 		else {
 			g.drawImage(scoreBoard, 0, 0, null);
 			g.setColor(Color.white);
 			g.setFont(this.highscoreFont);
-			g.drawString(best, 270, 274);
-			g.drawString(secondBest, 270, 305);
-			g.drawString(thirdBest, 270, 336);
-			g.drawString(fourthBest, 270, 367);
-			g.drawString(fifthBest, 270, 393);
+			g.drawString(best, 390, 274);
+			g.drawString(secondBest, 390, 305);
+			g.drawString(thirdBest, 390, 336);
+			g.drawString(fourthBest, 390, 367);
+			g.drawString(fifthBest, 390, 393);
 		}
 	}
 
+	/**
+	 * Setter method that gets the frog from the loaded map. This utilizes memory leaks, as
+	 * now the map, game engine, and now graphics engine will all utilize the same frog.
+	 * 
+	 * @param mapFrog, frog set and used by the loaded map.
+	 */
 	public void getUserFrog(Frog mapFrog) {
 		this.userFrog = mapFrog;
 	}
 	
+	/**
+	 * Setter method that gets the 2D log array from the loaded map. This utilizes memory leaks, as
+	 * now the map, game engine, and now graphics engine will all utilize the same 2D log array.
+	 * 
+	 * @param mapLogArray, 2D log array set and used by the loaded map.
+	 */
 	public void getMapLogs(Log[][] mapLogArray) {
 		this.logArray = mapLogArray;
 	}
 	
+	/**
+	 * Setter method that gets the 2D turtle array from the loaded map. This utilizes memory leaks, as
+	 * now the map, game engine, and now graphics engine will all utilize the same 2D turtle array.
+	 * 
+	 * @param mapLogArray, 2D turtle array set and used by the loaded map.
+	 */
 	public void getMapTurtles(Turtle[][] mapTurtleArray) {
 		this.turtleArray = mapTurtleArray;
 	}
 	
+	/**
+	 * Setter method that gets the 2D vehicle array from the loaded map. This utilizes memory leaks, as
+	 * now the map, game engine, and now graphics engine will all utilize the same 2D vehicle array.
+	 * 
+	 * @param mapVehicleArray, 2D vehicle array set and used by the loaded map.
+	 */
 	public void getMapVehicles(Vehicle[][] mapVehicleArray) {
 		this.vehicleArray = mapVehicleArray;
 	}
 	
+	/**
+	 * Setter method that sets the gameMode used by the graphics engine. This value is taken from the game engine.
+	 * 
+	 * @param gameMode, game mode set by the game engine.
+	 */
 	public void setGameMode(int gameMode) {
 		this.gameMode = gameMode;
 	}
 	
+	/**
+	 * Setter method that gets the game score set by the game engine and scoring manager.
+	 * 
+	 * @param gameScore, user's score set by the game engine and scoring manager.
+	 */
 	public void getGameScore(String gameScore) {
 		this.gameScore = new String (gameScore);
 	}
 	
+	/**
+	 * Setter method that gets the game score set by the scoring manager.
+	 * 
+	 * @param gameScore, user's score set and used by the scoring manager.
+	 */
 	public void setBestScores(String highestScores){
 		if(highestScores.length() >= 5){
 			best = highestScores.substring(0,4);
