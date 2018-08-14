@@ -34,7 +34,6 @@ public class HighscoreManager {
 	 */
 	public HighscoreManager() {
 		scoreList = new ArrayList<Score>();
-		updateScoreFile();
 	}
 	
 	/**
@@ -62,9 +61,9 @@ public class HighscoreManager {
 		}catch (FileNotFoundException e) {
 			System.out.println("[Laad] FNF Error: " + e.getMessage());
 		}catch (IOException e) {
-			System.out.println("[Laad] IO Error: " + e.getMessage());
+			//System.out.println("[Laad] IO Error: " + e.getMessage());
 		}catch (Exception e) {			
-			System.out.println("[Laad] CNF Error: " + e.getMessage());
+			//System.out.println("[Laad] CNF Error: " + e.getMessage());
 		}finally {
 			try {
 				if(output != null) {
