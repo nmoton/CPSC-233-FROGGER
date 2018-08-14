@@ -1,8 +1,13 @@
 package frogger;
-
+/**
+This class is a subclass of Map which contains an instance variable
+and methods that sets the position of the obstacles in the map
+*/
 public class LevelThree extends Map{
 
-	
+	/* This method  sets the obstacle arrays in the map
+	*with using its own instance variables
+	*/
 	public LevelThree() {
 		super.logArray = level3LogArray;
 		super.vehicleArray = level3VehicleArray;
@@ -13,6 +18,7 @@ public class LevelThree extends Map{
 	/**
 	 * Level 3 Object Arrays: Logs, Vehicles, Turtles
 	 */
+	//Contains the x and y position, speed, and lenght of all the logs
 	private Log[][] level3LogArray = {
 		//Left-bound log @ y = 416.0, traveling at speed of 1.0, gaps of 224.0, and length of 5:
 		{new Log (0.0, 416.0, 1.5, 5, true), new Log (224.0, 416.0, 1.5, 5, true), new Log (448.0, 416.0, 1.5, 5, true),
@@ -26,6 +32,7 @@ public class LevelThree extends Map{
 			new Log (680, 192.0, 0.75, 3, true)}
 		
 	};
+	//Contains the x and y position, speed, and lenght of all the vehicles
 	private Vehicle[][] level3VehicleArray = {
 		//Left-bound vehicle @ y = 96.0, traveling at speed of 1.75, gaps of 128.0, and length of 1:
 		{new Vehicle (640.0, 96.0, 1.75, 1, false), new Vehicle (512.0, 96.0, 1.75, 1, false), new Vehicle (384.0, 96.0, 1.75, 1, false),
@@ -43,6 +50,7 @@ public class LevelThree extends Map{
 		{new Vehicle (640.0, 288.0, 2.5, 1, true), new Vehicle (576.0, 288.0, 2.5, 1, true)},
 			
 	};
+	//Contains the x and y position, speed, and lenght of all the turtle
 	public Turtle[][] level3TurtleArray = {
 		//Left-bound turtle @ y = 320.0, traveling at speed of 0.5, various gaps, and length of 3:
 		{new Turtle (640.0, 320.0, 2.0, 3), new Turtle (512.0, 320.0, 2.0, 2), new Turtle (384.0, 320.0, 2.0, 3),
