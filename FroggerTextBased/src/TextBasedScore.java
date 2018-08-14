@@ -10,12 +10,12 @@ import java.util.*;
  *
  * Last Updated:07/08/2018
  */
-public class Score implements Serializable {
+public class TextBasedScore implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	private int score;
 	private String username;
-	private int highestPosY;
+	private double highestPosY;
 	private static Scanner keyboard = new Scanner(System.in);
 	
 	/**
@@ -23,14 +23,14 @@ public class Score implements Serializable {
 	 * the player has achieved
 	 * @param posY - starting y position of the player
 	 */
-	Score(int posY){
+	TextBasedScore(int posY){
 		score = 0;
 		username = null;
 		setHighestPosY(posY);
 	}
 	
 	//Only used for JUnit Testing
-	Score(int s, String name){
+	TextBasedScore(int s, String name){
 		score = s;
 		username = name;
 		setHighestPosY(9);
@@ -40,7 +40,7 @@ public class Score implements Serializable {
 	 * A copy constructor, which copies the name and score of a Score object
 	 * @param toCopy - that object that is being copied
 	 */
-	Score(Score toCopy){
+	TextBasedScore(TextBasedScore toCopy){
 		this.score = toCopy.score;
 		this.username = toCopy.username;
 	}
@@ -96,7 +96,7 @@ public class Score implements Serializable {
 	 * highestPosY, and updates the highestPosY to the new highest y position reached.
 	 * @param playerPosY
 	 */
-	public void updateScore(int playerPosY) {
+	public void updateScore(double playerPosY) {
 		if(playerPosY < highestPosY) {
 			score += 10;
 			highestPosY = playerPosY;
