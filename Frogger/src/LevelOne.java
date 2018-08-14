@@ -1,18 +1,26 @@
 package frogger;
-
+/**
+This class is a subclass of Map which contains an instance variable
+and methods that sets the position of the obstacles in the map
+*/
 public class LevelOne extends Map {
-	
+	/**
+	*A constructor method for level one
+	*/
 	public LevelOne() {
 		setLevelOne();
 	}
 	
+	/* This method  sets the obstacle arrays in the map
+	*with its own instance variables
+	*/
 	public void setLevelOne() {
 		super.logArray = level1LogArray;
 		super.vehicleArray = level1VehicleArray;
 		super.turtleArray = level1TurtleArray;
 		MapGraphics();
 	}
-	
+	//Contains the x and y position, speed, and lenght of all the logs
 	private Log[][] level1LogArray = {
 			//Right-bound log @ y = 96.0, traveling at speed of 1.0, gaps of 224.0, and length of 5:
 			{new Log (0.0, 96.0, 1.5, 5, true), new Log (224.0, 96.0, 1.5, 5, true), new Log (448.0, 96.0, 1.5, 5, true),
@@ -25,7 +33,7 @@ public class LevelOne extends Map {
 			{new Log (0.0, 192, 0.75, 3, true), new Log (160, 192, 0.75, 3, true), new Log (320, 192, 0.75, 3, true), 
 				new Log (680, 192, 0.75, 3, true)}
 		};
-		
+		//Contains the x and y position, speed, and lenght of all the vehicles
 		private Vehicle[][] level1VehicleArray = {
 			//Left-bound vehicle @ y = 416.0, traveling at speed of 0.75, gaps of 128.0, and length of 1:
 			{new Vehicle (640.0, 416.0, 0.75, 1, false), new Vehicle (512.0, 416.0, 0.75, 1, false), new Vehicle (384.0, 416.0, 0.75, 1, false),
@@ -46,7 +54,7 @@ public class LevelOne extends Map {
 			{new Vehicle (640.0, 288.0, 0.75, 2, false), new Vehicle (480, 288.0, 0.75, 2, false), new Vehicle (320, 288.0, 0.75, 2, false),
 				new Vehicle (160, 288.0, 0.75, 2, false)}
 		};
-		
+		//Contains the x and y position, speed, and lenght of all the turtles
 		private Turtle[][] level1TurtleArray = {
 			//Left-bound turtle @ y = 128.0, traveling at speed of 0.5, various gaps, and length of 2:
 			{new Turtle (640.0, 128.0, 0.5, 2), new Turtle (512.0, 128.0, 0.5, 2), new Turtle (384.0, 128.0, 0.5, 2),
