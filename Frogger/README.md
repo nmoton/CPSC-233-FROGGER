@@ -1,8 +1,8 @@
 # Frogger - GUI Version
 
 ## How to Compile and Play
-1. Download/Clone the repo or the entire folder to your computer
-2. Ensure the game is in a folder called "frogger" to match the Java package
+1. Download/Clone the repo or the entire folder ("Frogger") to your computer
+2. Ensure the game classes found in "src" is in a folder called "frogger" to match the Java package
 3. Download the select sound effect files from http://www.classicgaming.cc/classics/frogger/sounds and place them into a directory of your choice (view the section titled "How to use Sounds" below)
 4. Download the font "Pixeled" from https://dl.dafont.com/dl/?f=pixeled and place them into a directory of your choice
 4. Modify the file directories in the class "GameGraphics.java". The file directories are in the constructor/method labled "GameGraphics"
