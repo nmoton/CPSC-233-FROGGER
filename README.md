@@ -3,7 +3,7 @@
 </p>
 
 ## INTRODUCTION
-The objective of this project was for our team of three to recreate, with several modifications, Atari's 1981 hit arcade game Frogger, in Java. This project fell under "Category C - Animation Application or Game" on the CPSC 233 Final Project Assignment Page. This project was completed well before the end of the 2018 summer semester (6 week period) deadline. Our team recieved a perfect grade of 100%, and all team members recieved a grade of "A" in the course.
+The objective of this project was for our team of three to recreate, with several modifications, Atari's 1981 hit arcade game Frogger, in Java using Swing. This project fell under "Category C - Animation Application or Game" on the CPSC 233 Final Project Assignment Page. This project was completed well before the end of the 2018 summer semester (6 week period) deadline. Our team recieved a perfect grade of 100%, and all team members recieved a grade of "A" in the course.
 
 Click on the image below to see the game in action.
 
