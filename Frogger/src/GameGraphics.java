@@ -75,28 +75,28 @@ public class GameGraphics extends JPanel {
 	public GameGraphics(){
 		//Loading all images and sprites
 		try {
-			mainMenu = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\mainMenu.png"));
-			pointTable = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\pointTable.png"));
-			gameOver = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\gameOver.png"));
-			youWin = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\youWin.png"));
-			scoreBoard = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\scoreBoard.png"));
-			map1 = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\map1.png"));
-			map2 = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\map2.png"));
-			map3 = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\map3.png"));
-			upFrog = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\upFrog.png"));
-			downFrog = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\downFrog.png"));
-			leftFrog = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\leftFrog.png"));
-			rightFrog = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\rightFrog.png"));
-			log3L = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\log3L.png"));
-			log5L = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\log5L.png"));
-			log7L = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\log7L.png"));
-			truck = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\truck.png"));
-			pinkCar = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\pinkCar.png"));
-			yellowCar = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\yellowCar.png"));
-			bulldozer = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\bulldozer.png"));
-			racecar = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\racecar.png"));
-			turtle2L = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\turtle2L.png"));
-			turtle3L = ImageIO.read(new File("C:\\Users\\Nate\\Desktop\\Frogger Graphics\\turtle3L.png"));
+			mainMenu = ImageIO.read(new File(".\\resources\\mainMenu.png"));
+			pointTable = ImageIO.read(new File(".\\resources\\pointTable.png"));
+			gameOver = ImageIO.read(new File(".\\resources\\gameOver.png"));
+			youWin = ImageIO.read(new File(".\\resources\\youWin.png"));
+			scoreBoard = ImageIO.read(new File(".\\resources\\scoreBoard.png"));
+			map1 = ImageIO.read(new File(".\\resources\\map1.png"));
+			map2 = ImageIO.read(new File(".\\resources\\map2.png"));
+			map3 = ImageIO.read(new File(".\\resources\\map3.png"));
+			upFrog = ImageIO.read(new File(".\\resources\\upFrog.png"));
+			downFrog = ImageIO.read(new File(".\\resources\\downFrog.png"));
+			leftFrog = ImageIO.read(new File(".\\resources\\leftFrog.png"));
+			rightFrog = ImageIO.read(new File(".\\resources\\rightFrog.png"));
+			log3L = ImageIO.read(new File(".\\resources\\log3L.png"));
+			log5L = ImageIO.read(new File(".\\resources\\log5L.png"));
+			log7L = ImageIO.read(new File(".\\resources\\log7L.png"));
+			truck = ImageIO.read(new File(".\\resources\\truck.png"));
+			pinkCar = ImageIO.read(new File(".\\resources\\pinkCar.png"));
+			yellowCar = ImageIO.read(new File(".\\resources\\yellowCar.png"));
+			bulldozer = ImageIO.read(new File(".\\resources\\bulldozer.png"));
+			racecar = ImageIO.read(new File(".\\resources\\racecar.png"));
+			turtle2L = ImageIO.read(new File(".\\resources\\turtle2L.png"));
+			turtle3L = ImageIO.read(new File(".\\resources\\turtle3L.png"));
 			
 		} catch (IOException e) {
 			
